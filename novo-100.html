@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Novo 100 — 2026</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #242d23;
+    --ink-soft: #555c52;
+    --indigo: #3d44e3;
+    --indigo-deep: #2a30b8;
+    --indigo-tint: #ebecfb;
+    --cream: #f4f1e8;
+    --cream-deep: #ece8db;
+    --paper: #ffffff;
+    --line: #ddd8ca;
+    --line-soft: #e6e2d6;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, sans-serif;
+    --mono: "SF Mono", "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+
+  @media (prefers-reduced-motion: reduce){ * { animation: none !important; transition: none !important; } }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--cream); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+
+  .legal-strip { background: var(--ink); color: #cfd3cb; font-size: 11.5px; text-align: center; padding: 8px 16px; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; max-width: 1080px; margin: 0 auto; }
+  .wordmark { font-size: 26px; font-weight: 800; letter-spacing: -0.04em; }
+  .wordmark::after { content:""; display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--indigo); margin-left:2px; vertical-align:2px; }
+  .btn { font-family: var(--sans); font-size: 14px; font-weight: 600; border-radius: 999px; padding: 10px 20px; cursor: pointer; border: 1.5px solid transparent; text-decoration: none; display: inline-block; transition: background .18s, color .18s, border-color .18s, transform .12s; }
+  .btn-primary { background: var(--indigo); color: #fff; }
+  .btn-primary:hover { background: var(--indigo-deep); transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+  .btn-ghost:hover { border-color: var(--ink); }
+  .topbar .btn { padding: 8px 16px; }
+
+  .spark path { fill: var(--indigo); }
+
+  /* hero */
+  .hero { padding: 64px 0 40px; text-align: center; }
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 9px; font-family: var(--mono);
+    font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--indigo);
+    background: var(--indigo-tint); border-radius: 999px; padding: 7px 16px; margin-bottom: 26px;
+  }
+  .status-pill .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--indigo); position: relative; }
+  .status-pill .live-dot::after { content:""; position:absolute; inset:-4px; border-radius:50%; border:1.5px solid var(--indigo); opacity:.5; animation: ping 1.8s ease-out infinite; }
+  @keyframes ping { 0%{ transform: scale(.8); opacity:.6; } 100%{ transform: scale(1.8); opacity:0; } }
+
+  .lockup { font-size: clamp(56px, 13vw, 132px); font-weight: 800; letter-spacing: -0.05em; line-height: 0.86; }
+  .lockup .hundred { color: var(--indigo); }
+  .year-badge { font-family: var(--mono); font-size: 14px; letter-spacing: 0.18em; color: var(--ink-soft); margin-top: 18px; }
+  .hero-desc { max-width: 46ch; margin: 22px auto 0; font-size: 17px; color: var(--ink-soft); }
+
+  /* tabs */
+  .tabs { display: flex; justify-content: center; gap: 4px; margin: 44px auto 0; border-bottom: 1px solid var(--line); max-width: 620px; }
+  .tab {
+    font-family: var(--sans); font-size: 15px; font-weight: 600; color: var(--ink-soft);
+    background: none; border: none; cursor: pointer; padding: 14px 20px; position: relative;
+    transition: color .15s; white-space: nowrap;
+  }
+  .tab:hover { color: var(--ink); }
+  .tab.active { color: var(--indigo); }
+  .tab.active::after { content:""; position: absolute; left: 12px; right: 12px; bottom: -1px; height: 2.5px; background: var(--indigo); border-radius: 2px; }
+  @media (max-width: 560px){ .tab { padding: 13px 12px; font-size: 14px; } }
+
+  .panel { display: none; padding: 44px 0 30px; animation: fade .4s ease; }
+  .panel.active { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* nominate */
+  .form-head { text-align: center; max-width: 44ch; margin: 0 auto 32px; }
+  .form-head h2 { font-size: clamp(26px, 4vw, 34px); font-weight: 800; letter-spacing: -0.02em; }
+  .form-head p { margin-top: 12px; font-size: 16px; color: var(--ink-soft); }
+  .nom-form { max-width: 560px; margin: 0 auto; background: var(--paper); border: 1px solid var(--line); border-radius: 24px; padding: 34px 34px 30px; }
+  @media (max-width: 560px){ .nom-form { padding: 26px 22px; } }
+  .field { margin-bottom: 18px; }
+  .field label { display: block; font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
+  .field label .req { color: var(--indigo); }
+  .field input, .field select, .field textarea {
+    width: 100%; font-family: var(--sans); font-size: 15px; padding: 13px 15px;
+    border: 1.5px solid var(--line); border-radius: 12px; background: var(--cream); color: var(--ink); outline: none;
+    transition: border-color .15s, background .15s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--indigo); background: #fff; }
+  .field textarea { resize: vertical; min-height: 110px; }
+  .field.err input, .field.err select, .field.err textarea { border-color: #e05a4a; }
+  .counter { font-family: var(--mono); font-size: 11.5px; color: var(--ink-soft); text-align: right; margin-top: 6px; }
+  .counter.over { color: #e05a4a; }
+  .nom-form .btn-primary { width: 100%; text-align: center; padding: 15px; font-size: 16px; margin-top: 6px; }
+  .form-success { text-align: center; padding: 30px 10px; }
+  .form-success .spark { margin-bottom: 16px; }
+  .form-success h3 { font-size: 22px; font-weight: 800; letter-spacing: -0.015em; margin-bottom: 10px; }
+  .form-success p { font-size: 15.5px; color: var(--ink-soft); max-width: 36ch; margin: 0 auto; }
+
+  /* vote (coming soon) */
+  .soon { max-width: 480px; margin: 10px auto; text-align: center; background: var(--paper); border: 1px solid var(--line); border-radius: 24px; padding: 48px 36px; }
+  .soon .spark { margin-bottom: 18px; }
+  .soon h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
+  .soon p { font-size: 16px; color: var(--ink-soft); margin: 12px 0 26px; }
+  .soon-form { display: flex; gap: 10px; }
+  .soon-form input { flex: 1; font-family: var(--sans); font-size: 15px; padding: 13px 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--cream); outline: none; }
+  .soon-form input:focus { border-color: var(--indigo); background: #fff; }
+  .soon-form .btn-primary { white-space: nowrap; }
+  .soon-done { font-family: var(--mono); font-size: 14px; color: var(--indigo); }
+
+  /* winners */
+  .winners-head { text-align: center; max-width: 46ch; margin: 0 auto 28px; font-size: 16px; color: var(--ink-soft); }
+  .controls { display: flex; flex-direction: column; gap: 16px; margin-bottom: 28px; }
+  .search-box { position: relative; max-width: 420px; margin: 0 auto; width: 100%; }
+  .search-box input { width: 100%; font-family: var(--sans); font-size: 15px; padding: 13px 16px 13px 42px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--paper); outline: none; }
+  .search-box input:focus { border-color: var(--indigo); }
+  .search-box svg { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); opacity: .5; }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .filter-pill { font-family: var(--sans); font-size: 13px; font-weight: 500; cursor: pointer; background: var(--paper); color: var(--ink-soft); border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 15px; transition: all .15s; }
+  .filter-pill:hover { border-color: var(--indigo); color: var(--indigo); }
+  .filter-pill.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 820px){ .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px){ .grid { grid-template-columns: 1fr; } }
+  .winner { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 24px 22px; transition: transform .18s, box-shadow .18s, border-color .18s; }
+  .winner:hover { transform: translateY(-3px); box-shadow: 0 16px 40px -24px rgba(36,45,35,.5); border-color: var(--indigo); }
+  .winner-top { display: flex; align-items: center; gap: 13px; margin-bottom: 16px; }
+  .avatar { width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 17px; letter-spacing: -0.01em; }
+  .winner-name { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+  .winner-loc { font-family: var(--mono); font-size: 11.5px; color: var(--ink-soft); }
+  .winner-biz { font-size: 14.5px; font-weight: 600; color: var(--indigo); margin-bottom: 6px; }
+  .winner-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.5; margin-bottom: 14px; }
+  .cat-badge { display: inline-block; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; }
+  .no-results { text-align: center; color: var(--ink-soft); font-size: 15px; padding: 40px 0; grid-column: 1 / -1; }
+
+  /* footer */
+  .footer-cta { background: var(--ink); color: #fff; border-radius: 30px; margin: 56px 0; padding: 54px 44px; text-align: center; }
+  .footer-cta h2 { font-size: clamp(26px, 4.5vw, 40px); font-weight: 800; letter-spacing: -0.025em; max-width: 20ch; margin: 0 auto 24px; }
+  .footer-cta .btn-primary { background: #fff; color: var(--ink); }
+  .footer-cta .btn-primary:hover { background: var(--cream-deep); }
+  .footer-cta .btn-ghost { color: #fff; border-color: rgba(255,255,255,.4); margin-left: 10px; }
+  .footer-cta .btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+
+  footer.site { padding: 0 0 60px; }
+  .foot-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; border-top: 1px solid var(--line-soft); padding-top: 24px; }
+  .foot-note { font-size: 12px; color: var(--ink-soft); max-width: 62ch; }
+
+  .toast { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--indigo); color: #fff; font-size: 14px; font-weight: 500; padding: 13px 22px; border-radius: 999px; opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; z-index: 50; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+  <div class="legal-strip">Novo is a fintech, not a bank. Banking services provided by Middlesex Federal Savings, F.A. Member FDIC.</div>
+  <div class="topbar">
+    <div class="wordmark">novo</div>
+    <a class="btn btn-primary" href="#">Open account</a>
+  </div>
+
+  <main class="wrap">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="status-pill"><span class="live-dot"></span>Nominations open</div>
+      <div class="lockup">The Novo <span class="hundred">100</span></div>
+      <div class="year-badge">2026 CLASS</div>
+      <p class="hero-desc">Recognizing 100 independent business owners building something worth noticing. Community-nominated, peer-voted — not picked by us.</p>
+    </section>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab active" data-tab="nominate">Nominate</button>
+      <button class="tab" data-tab="vote">Vote</button>
+      <button class="tab" data-tab="winners">The 2026 Novo 100</button>
+    </div>
+
+    <!-- NOMINATE -->
+    <section class="panel active" id="panel-nominate">
+      <div class="form-head">
+        <h2>Know someone remarkable?</h2>
+        <p>Nominations are open through August 31, 2026. Tell us about an independent business owner who deserves to be recognized.</p>
+      </div>
+      <div class="nom-form" id="nomForm">
+        <div class="field"><label>Your name</label><input type="text" id="f_you" placeholder="So we can follow up"></div>
+        <div class="field" id="wrap_nominee"><label>Nominee's full name <span class="req">*</span></label><input type="text" id="f_nominee" placeholder="Who are you nominating?"></div>
+        <div class="field" id="wrap_biz"><label>Business name <span class="req">*</span></label><input type="text" id="f_biz" placeholder="The name of their business"></div>
+        <div class="field" id="wrap_loc"><label>City, State <span class="req">*</span></label><input type="text" id="f_loc" placeholder="e.g. Asheville, NC"></div>
+        <div class="field"><label>Business category</label>
+          <select id="f_cat">
+            <option>Freelancer</option><option>Retail</option><option>Services</option>
+            <option>Ecommerce</option><option>Startup</option><option>Food &amp; Beverage</option><option>Other</option>
+          </select>
+        </div>
+        <div class="field" id="wrap_why"><label>Why do they deserve recognition? <span class="req">*</span></label>
+          <textarea id="f_why" placeholder="What makes their story stand out?"></textarea>
+          <div class="counter" id="counter">0 / 150 words</div>
+        </div>
+        <button class="btn btn-primary" id="submitNom" type="button">Submit nomination</button>
+      </div>
+    </section>
+
+    <!-- VOTE -->
+    <section class="panel" id="panel-vote">
+      <div class="soon">
+        <svg class="spark" width="28" height="28" viewBox="0 0 24 24"><path d="M11.765 0C12.178 6.628 17.482 11.887 24 11.998v.004c-6.52.111-11.822 5.37-12.235 11.998C11.361 17.53 6.303 12.368 0 12.02v-.037C6.303 11.634 11.363 6.47 11.765.003z"/></svg>
+        <h2>Voting opens September 15, 2026.</h2>
+        <p>Once nominations close, the community votes on who makes the list. Want a nudge when it goes live?</p>
+        <div class="soon-form" id="voteForm">
+          <input type="email" id="voteEmail" placeholder="you@yourbusiness.com" aria-label="Email">
+          <button class="btn btn-primary" id="voteBtn" type="button">Remind me</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- WINNERS -->
+    <section class="panel" id="panel-winners">
+      <p class="winners-head">Meet the 2026 class — independent business owners recognized by the Novo community. <strong>(Showing 12 of 100, sample data.)</strong></p>
+      <div class="controls">
+        <div class="search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#242d23" stroke-width="2"/><path d="m20 20-3-3" stroke="#242d23" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="text" id="search" placeholder="Search by name or business">
+        </div>
+        <div class="filters" id="filters"></div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <!-- FOOTER CTA -->
+    <section class="footer-cta">
+      <h2>Know an independent business owner who belongs here?</h2>
+      <button class="btn btn-primary" id="ctaNominate" type="button">Nominate them</button>
+      <button class="btn btn-ghost" id="ctaShare" type="button">Share the Novo 100</button>
+    </section>
+
+    <footer class="site">
+      <div class="foot-row">
+        <div class="wordmark" style="font-size:20px;">novo</div>
+        <div class="foot-note">The Novo 100 · 2026 · Community-nominated, peer-voted. Sample data for prototype use. Novo is a fintech, not a bank. Banking services provided by Middlesex Federal Savings, F.A. Member FDIC.</div>
+      </div>
+    </footer>
+
+  </main>
+
+  <div class="toast" id="toast">Link copied</div>
+
+<script>
+  // ---------- tabs ----------
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('.panel');
+  function activate(name){
+    tabs.forEach(function(t){ t.classList.toggle('active', t.getAttribute('data-tab') === name); });
+    panels.forEach(function(p){ p.classList.toggle('active', p.id === 'panel-' + name); });
+  }
+  tabs.forEach(function(t){ t.addEventListener('click', function(){ activate(t.getAttribute('data-tab')); }); });
+
+  // ---------- nominate: word counter ----------
+  var why = document.getElementById('f_why');
+  var counter = document.getElementById('counter');
+  function wordCount(s){ s = s.trim(); return s ? s.split(/\s+/).length : 0; }
+  why.addEventListener('input', function(){
+    var n = wordCount(why.value);
+    counter.textContent = n + ' / 150 words';
+    counter.classList.toggle('over', n > 150);
+  });
+
+  // ---------- nominate: submit + validation ----------
+  document.getElementById('submitNom').addEventListener('click', function(){
+    var required = [['f_nominee','wrap_nominee'], ['f_biz','wrap_biz'], ['f_loc','wrap_loc'], ['f_why','wrap_why']];
+    var ok = true;
+    required.forEach(function(pair){
+      var input = document.getElementById(pair[0]);
+      var wrap = document.getElementById(pair[1]);
+      var empty = !input.value.trim();
+      wrap.classList.toggle('err', empty);
+      if(empty) ok = false;
+    });
+    if(wordCount(why.value) > 150) ok = false;
+    if(!ok){ document.querySelector('.field.err input, .field.err textarea')?.focus(); return; }
+
+    var name = document.getElementById('f_nominee').value.trim();
+    var form = document.getElementById('nomForm');
+    form.innerHTML = '<div class="form-success">' +
+      '<svg class="spark" width="30" height="30" viewBox="0 0 24 24"><path d="M11.765 0C12.178 6.628 17.482 11.887 24 11.998v.004c-6.52.111-11.822 5.37-12.235 11.998C11.361 17.53 6.303 12.368 0 12.02v-.037C6.303 11.634 11.363 6.47 11.765.003z"/></svg>' +
+      '<h3>Nomination received.</h3>' +
+      '<p>Thank you for recognizing ' + (name || 'them') + '. We review every submission before voting opens in September.</p>' +
+      '</div>';
+  });
+
+  // ---------- vote: remind ----------
+  document.getElementById('voteBtn').addEventListener('click', function(){
+    var v = document.getElementById('voteEmail').value.trim();
+    if(!v || v.indexOf('@') < 1){ document.getElementById('voteEmail').style.borderColor = '#e05a4a'; return; }
+    document.getElementById('voteForm').innerHTML = '<div class="soon-done">We\u2019ll remind you when voting opens.</div>';
+  });
+
+  // ---------- winners data ----------
+  var CATS = ['All','Freelancer','Retail','Services','Ecommerce','Startup','Food & Beverage'];
+  var CAT_COLOR = {
+    'Freelancer': ['#ebecfb','#3d44e3'], 'Retail': ['#fdeede','#b9790f'],
+    'Services': ['#e4f3ec','#1f9d6b'], 'Ecommerce': ['#f1e9fb','#7a52d6'],
+    'Startup': ['#fde9e6','#c0432f'], 'Food & Beverage': ['#fbf3dc','#9a7a14']
+  };
+  var AV_COLORS = ['#3d44e3','#242d23','#7a52d6','#1f9d6b','#c0432f','#b9790f','#2a30b8','#4a5147'];
+
+  var WINNERS = [
+    { name:'Imani Brooks', biz:'Cedar & Clay Ceramics', loc:'Asheville, NC', cat:'Retail', desc:'Turned a garage kiln into a wholesale studio supplying 40 shops across the Southeast.' },
+    { name:'Daniel Park', biz:'Park Mobile Diagnostics', loc:'Sacramento, CA', cat:'Services', desc:'Brings the auto shop to the driveway — booked solid three weeks out, no storefront.' },
+    { name:'Sofia Marquez', biz:'La Lengua Language Co.', loc:'San Antonio, TX', cat:'Freelancer', desc:'Solo translator who now subcontracts a network of 12 linguists nationwide.' },
+    { name:'Marcus Webb', biz:'Webb Bros. Cold Brew', loc:'Detroit, MI', cat:'Food & Beverage', desc:'Went from farmers-market cart to 200 grocery doors in 18 months.' },
+    { name:'Aaliyah Carter', biz:'Knot & Grain Studio', loc:'Portland, ME', cat:'Ecommerce', desc:'Handmade home goods shop shipping 500 orders a month from a converted barn.' },
+    { name:'Hassan Ali', biz:'Northstar Logistics AI', loc:'Columbus, OH', cat:'Startup', desc:'Built routing software for small freight haulers; six employees and growing.' },
+    { name:'Grace Liu', biz:'Liu Family Acupuncture', loc:'Seattle, WA', cat:'Services', desc:'Third-generation practice modernized with online booking and a sliding scale.' },
+    { name:'Tobias Reed', biz:'Reed Letterpress', loc:'Richmond, VA', cat:'Retail', desc:'Restored century-old presses into a thriving wedding-stationery business.' },
+    { name:'Yuki Tanaka', biz:'Tanaka Test Kitchen', loc:'Honolulu, HI', cat:'Food & Beverage', desc:'Pop-up turned permanent — a 20-seat counter with a six-month waitlist.' },
+    { name:'Brianna Scott', biz:'Scott Creative Freelance', loc:'Nashville, TN', cat:'Freelancer', desc:'Brand designer who built a referral-only practice with zero ad spend.' },
+    { name:'Omar Haddad', biz:'Cedar Box Subscriptions', loc:'Minneapolis, MN', cat:'Ecommerce', desc:'Curated goods box that grew to 8,000 subscribers on word of mouth alone.' },
+    { name:'Nina Petrov', biz:'Bright Lane Tutoring', loc:'Denver, CO', cat:'Startup', desc:'Built a tutor marketplace serving 30 schools after starting at her kitchen table.' }
+  ];
+
+  var activeFilter = 'All';
+  var query = '';
+
+  // build filter pills
+  var filtersEl = document.getElementById('filters');
+  CATS.forEach(function(c){
+    var b = document.createElement('button');
+    b.className = 'filter-pill' + (c === 'All' ? ' active' : '');
+    b.textContent = c;
+    b.addEventListener('click', function(){
+      activeFilter = c;
+      document.querySelectorAll('.filter-pill').forEach(function(p){ p.classList.remove('active'); });
+      b.classList.add('active');
+      render();
+    });
+    filtersEl.appendChild(b);
+  });
+
+  function initials(name){ return name.split(' ').map(function(w){ return w[0]; }).join('').slice(0,2).toUpperCase(); }
+
+  function render(){
+    var grid = document.getElementById('grid');
+    grid.innerHTML = '';
+    var q = query.toLowerCase();
+    var shown = WINNERS.filter(function(w, i){
+      var matchCat = activeFilter === 'All' || w.cat === activeFilter;
+      var matchQ = !q || w.name.toLowerCase().indexOf(q) > -1 || w.biz.toLowerCase().indexOf(q) > -1;
+      return matchCat && matchQ;
+    });
+    if(!shown.length){
+      grid.innerHTML = '<div class="no-results">No one matches that yet. Try a different category or search.</div>';
+      return;
+    }
+    shown.forEach(function(w, i){
+      var col = CAT_COLOR[w.cat] || ['#ebecfb','#3d44e3'];
+      var av = AV_COLORS[WINNERS.indexOf(w) % AV_COLORS.length];
+      var card = document.createElement('div');
+      card.className = 'winner';
+      card.innerHTML =
+        '<div class="winner-top">' +
+          '<div class="avatar" style="background:' + av + '">' + initials(w.name) + '</div>' +
+          '<div><div class="winner-name">' + w.name + '</div><div class="winner-loc">' + w.loc + '</div></div>' +
+        '</div>' +
+        '<div class="winner-biz">' + w.biz + '</div>' +
+        '<div class="winner-desc">' + w.desc + '</div>' +
+        '<span class="cat-badge" style="background:' + col[0] + ';color:' + col[1] + '">' + w.cat + '</span>';
+      grid.appendChild(card);
+    });
+  }
+
+  document.getElementById('search').addEventListener('input', function(e){ query = e.target.value; render(); });
+  render();
+
+  // ---------- footer actions ----------
+  document.getElementById('ctaNominate').addEventListener('click', function(){
+    activate('nominate');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  function toast(msg){
+    var t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(t._t); t._t = setTimeout(function(){ t.classList.remove('show'); }, 2200);
+  }
+  document.getElementById('ctaShare').addEventListener('click', function(){
+    var text = "Check out the 2026 Novo 100 — independent business owners worth knowing \u2192 novo.co/novo-100";
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ toast('Link copied to clipboard'); }, function(){ toast('Link copied to clipboard'); });
+    } else { toast('Link copied to clipboard'); }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Banking Health Check — Novo</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #242d23;
+    --ink-soft: #555c52;
+    --indigo: #3d44e3;
+    --indigo-deep: #2a30b8;
+    --indigo-tint: #ebecfb;
+    --cream: #f4f1e8;
+    --paper: #ffffff;
+    --line: #ddd8ca;
+    --green: #1f9d6b;
+    --amber: #e89b1c;
+    --red: #e05a4a;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, sans-serif;
+    --mono: "SF Mono", "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+
+  @media (prefers-reduced-motion: reduce){ * { animation: none !important; transition: none !important; } }
+
+  body {
+    font-family: var(--sans); background: var(--cream); color: var(--ink);
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
+    min-height: 100vh; display: flex; flex-direction: column;
+  }
+
+  .legal-strip { background: var(--ink); color: #cfd3cb; font-size: 11.5px; text-align: center; padding: 8px 16px; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 640px; margin: 0 auto; width: 100%; }
+  .wordmark { font-size: 24px; font-weight: 800; letter-spacing: -0.04em; }
+  .wordmark::after { content:""; display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--indigo); margin-left:2px; vertical-align:2px; }
+  .topbar .pill { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; }
+
+  .stage { flex: 1; display: flex; align-items: center; justify-content: center; padding: 28px 20px 56px; }
+  .card {
+    width: 100%; max-width: 540px; background: var(--paper);
+    border: 1px solid var(--line); border-radius: 26px;
+    padding: 40px 38px; box-shadow: 0 18px 50px -28px rgba(36,45,35,.4);
+  }
+  @media (max-width: 560px){ .card { padding: 30px 24px; border-radius: 22px; } }
+
+  .spark path { fill: var(--indigo); }
+  .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--indigo); display: inline-flex; align-items: center; gap: 9px; margin-bottom: 20px; }
+
+  /* screen transitions */
+  .screen { display: none; animation: slideIn .42s cubic-bezier(.22,1,.36,1); }
+  .screen.active { display: block; }
+  @keyframes slideIn { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
+
+  /* intro */
+  .intro-h { font-size: clamp(28px, 5vw, 38px); font-weight: 800; letter-spacing: -0.025em; line-height: 1.05; }
+  .intro-h em { font-style: normal; color: var(--indigo); }
+  .intro-sub { margin-top: 16px; font-size: 16.5px; color: var(--ink-soft); }
+  .meta-row { display: flex; gap: 18px; margin: 26px 0 30px; flex-wrap: wrap; }
+  .meta-row span { font-family: var(--mono); font-size: 12.5px; color: var(--ink-soft); display: flex; align-items: center; gap: 7px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--indigo); }
+
+  .btn {
+    font-family: var(--sans); font-size: 16px; font-weight: 600; border-radius: 999px;
+    padding: 15px 28px; cursor: pointer; border: 1.5px solid transparent; text-decoration: none;
+    display: inline-block; transition: background .18s, transform .12s, border-color .18s; width: 100%; text-align: center;
+  }
+  .btn-primary { background: var(--indigo); color: #fff; }
+  .btn-primary:hover { background: var(--indigo-deep); transform: translateY(-1px); }
+
+  /* progress */
+  .progress-wrap { margin-bottom: 28px; }
+  .progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .progress-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+  .progress-track { height: 6px; background: var(--cream); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; width: 20%; background: var(--indigo); border-radius: 999px; transition: width .45s cubic-bezier(.22,1,.36,1); }
+
+  .q-cat { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--indigo); margin-bottom: 10px; }
+  .q-text { font-size: 23px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.2; margin-bottom: 24px; }
+
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .opt {
+    font-family: var(--sans); font-size: 16px; text-align: left; cursor: pointer;
+    background: var(--paper); color: var(--ink);
+    border: 1.5px solid var(--line); border-radius: 14px; padding: 16px 18px;
+    transition: border-color .15s, background .15s, transform .1s;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .opt:hover { border-color: var(--indigo); background: var(--indigo-tint); }
+  .opt:active { transform: scale(.99); }
+  .opt .chev { opacity: 0; transition: opacity .15s; color: var(--indigo); }
+  .opt:hover .chev { opacity: 1; }
+  .opt.selected { border-color: var(--indigo); background: var(--indigo); color: #fff; }
+
+  /* results */
+  .res-band-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+  .score-ring { display: flex; align-items: baseline; gap: 6px; margin-bottom: 4px; }
+  .score-num { font-size: 88px; font-weight: 800; letter-spacing: -0.04em; line-height: 0.9; }
+  .score-den { font-family: var(--mono); font-size: 18px; color: var(--ink-soft); }
+  .res-headline { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; margin: 6px 0 6px; }
+  .res-sub { font-size: 15.5px; color: var(--ink-soft); margin-bottom: 26px; }
+
+  .cat-bars { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+  .cat-row { display: grid; grid-template-columns: 96px 1fr 34px; gap: 12px; align-items: center; }
+  .cat-name { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: var(--ink-soft); text-transform: uppercase; }
+  .cat-track { height: 8px; background: var(--cream); border-radius: 999px; overflow: hidden; }
+  .cat-fill { height: 100%; width: 0; border-radius: 999px; transition: width .9s cubic-bezier(.22,1,.36,1); }
+  .cat-pts { font-family: var(--mono); font-size: 12.5px; color: var(--ink); text-align: right; }
+
+  .recs { background: var(--cream); border-radius: 16px; padding: 22px 22px 8px; margin-bottom: 26px; }
+  .recs-h { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 14px; }
+  .rec { display: flex; gap: 12px; margin-bottom: 16px; }
+  .rec .spark { flex-shrink: 0; margin-top: 3px; }
+  .rec p { font-size: 15px; line-height: 1.5; }
+  .rec p strong { font-weight: 700; }
+
+  .res-actions { display: flex; flex-direction: column; gap: 10px; }
+  .btn-share { background: var(--paper); color: var(--ink); border: 1.5px solid var(--line); }
+  .btn-share:hover { border-color: var(--ink); }
+  .btn-restart { background: none; border: none; color: var(--ink-soft); font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; padding: 10px; }
+  .btn-restart:hover { color: var(--indigo); }
+
+  .toast {
+    position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--ink); color: #fff; font-size: 14px; font-weight: 500;
+    padding: 13px 22px; border-radius: 999px; opacity: 0; pointer-events: none;
+    transition: opacity .25s, transform .25s; z-index: 50; display: flex; align-items: center; gap: 8px;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+  <div class="legal-strip">Novo is a fintech, not a bank. Banking services provided by Middlesex Federal Savings, F.A. Member FDIC.</div>
+  <div class="topbar">
+    <div class="wordmark">novo</div>
+    <span class="pill">Banking Health Check</span>
+  </div>
+
+  <div class="stage">
+    <div class="card">
+
+      <!-- INTRO -->
+      <div class="screen active" id="screen-intro">
+        <div class="eyebrow">
+          <svg class="spark" width="16" height="16" viewBox="0 0 24 24"><path d="M11.765 0C12.178 6.628 17.482 11.887 24 11.998v.004c-6.52.111-11.822 5.37-12.235 11.998C11.361 17.53 6.303 12.368 0 12.02v-.037C6.303 11.634 11.363 6.47 11.765.003z"/></svg>
+          60-second check
+        </div>
+        <h1 class="intro-h">Is your business banking working as hard as <em>you</em> do?</h1>
+        <p class="intro-sub">Answer five quick questions and get your Business Banking Health Score — plus exactly where you're leaving time and money on the table.</p>
+        <div class="meta-row">
+          <span><span class="dot"></span>5 questions</span>
+          <span><span class="dot"></span>No sign-up</span>
+          <span><span class="dot"></span>Instant score</span>
+        </div>
+        <button class="btn btn-primary" id="startBtn">Start the check</button>
+      </div>
+
+      <!-- QUESTIONS -->
+      <div class="screen" id="screen-q">
+        <div class="progress-wrap">
+          <div class="progress-top">
+            <span class="progress-label" id="progLabel">Question 1 of 5</span>
+            <span class="progress-label" id="progPct">20%</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" id="progFill"></div></div>
+        </div>
+        <div class="q-cat" id="qCat"></div>
+        <div class="q-text" id="qText"></div>
+        <div class="options" id="options"></div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="screen" id="screen-res">
+        <div class="res-band-label" id="bandLabel"></div>
+        <div class="score-ring"><span class="score-num" id="scoreNum">0</span><span class="score-den">/ 100</span></div>
+        <h2 class="res-headline" id="resHeadline"></h2>
+        <p class="res-sub" id="resSub"></p>
+
+        <div class="cat-bars" id="catBars"></div>
+
+        <div class="recs">
+          <div class="recs-h">What we'd fix first</div>
+          <div id="recList"></div>
+        </div>
+
+        <div class="res-actions">
+          <a class="btn btn-primary" href="#signup">See how Novo compares</a>
+          <button class="btn btn-share" id="shareBtn">Share my score</button>
+          <button class="btn-restart" id="restartBtn">Retake the check</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="toast" id="toast">
+    <svg class="spark" width="14" height="14" viewBox="0 0 24 24"><path fill="#8c92f2" d="M11.765 0C12.178 6.628 17.482 11.887 24 11.998v.004c-6.52.111-11.822 5.37-12.235 11.998C11.361 17.53 6.303 12.368 0 12.02v-.037C6.303 11.634 11.363 6.47 11.765.003z"/></svg>
+    <span id="toastMsg">Copied to clipboard</span>
+  </div>
+
+<script>
+  var QUESTIONS = [
+    { cat: "Fees", text: "How much do you pay in monthly banking fees?",
+      opts: [["$0", 20], ["$10–$25", 15], ["$25–$50", 10], ["$50+", 0]],
+      low: { t: "You're paying for the privilege of banking.", b: "Novo charges <strong>no monthly fees, no minimums, and no hidden charges</strong> — that money stays in your business." } },
+    { cat: "Speed", text: "How long does it take to send or receive payments?",
+      opts: [["Same day", 20], ["1–2 days", 15], ["3–5 days", 10], ["5+ days", 0]],
+      low: { t: "Slow money is a cash-flow problem.", b: "With Novo you can send free standard ACH and get paid faster, so you're not waiting days to use your own money." } },
+    { cat: "Integrations", text: "Does your bank connect with your business tools?",
+      opts: [["Yes, seamlessly", 20], ["Some tools", 15], ["Manually", 10], ["Not at all", 0]],
+      low: { t: "You're the integration.", b: "Novo connects directly with <strong>Stripe, Shopify, QuickBooks</strong> and more — so your books, payments, and bank stay in sync." } },
+    { cat: "Visibility", text: "How easily can you see your cash flow in real time?",
+      opts: [["Instantly", 20], ["Daily", 15], ["Weekly", 10], ["I check manually", 0]],
+      low: { t: "Guessing at your balance is expensive.", b: "Novo shows what's in, what's out, and what's available in real time — no spreadsheet archaeology required." } },
+    { cat: "Support", text: "When a banking issue comes up, how easy is it to get help?",
+      opts: [["Very easy", 20], ["Somewhat easy", 15], ["Frustrating", 10], ["I dread it", 0]],
+      low: { t: "You shouldn't dread your bank.", b: "Novo's support is built for independent businesses — real help when something's on the line, without the runaround." } }
+  ];
+
+  var answers = [];   // points per question
+  var current = 0;
+
+  var screens = {
+    intro: document.getElementById('screen-intro'),
+    q: document.getElementById('screen-q'),
+    res: document.getElementById('screen-res')
+  };
+  function show(name){
+    Object.keys(screens).forEach(function(k){ screens[k].classList.remove('active'); });
+    screens[name].classList.add('active');
+  }
+
+  document.getElementById('startBtn').addEventListener('click', function(){
+    answers = []; current = 0; show('q'); renderQuestion();
+  });
+
+  function renderQuestion(){
+    var q = QUESTIONS[current];
+    document.getElementById('qCat').textContent = q.cat;
+    document.getElementById('qText').textContent = q.text;
+    document.getElementById('progLabel').textContent = 'Question ' + (current+1) + ' of 5';
+    var pct = Math.round(((current) / 5) * 100) + 20;
+    if(pct > 100) pct = 100;
+    document.getElementById('progPct').textContent = pct + '%';
+    document.getElementById('progFill').style.width = pct + '%';
+
+    var wrap = document.getElementById('options');
+    wrap.innerHTML = '';
+    q.opts.forEach(function(o){
+      var b = document.createElement('button');
+      b.className = 'opt';
+      b.innerHTML = '<span>' + o[0] + '</span><span class="chev">→</span>';
+      b.addEventListener('click', function(){
+        b.classList.add('selected');
+        answers[current] = o[1];
+        setTimeout(advance, 240);
+      });
+      wrap.appendChild(b);
+    });
+    // re-trigger slide animation
+    screens.q.classList.remove('active'); void screens.q.offsetWidth; screens.q.classList.add('active');
+  }
+
+  function advance(){
+    current++;
+    if(current < QUESTIONS.length){ renderQuestion(); }
+    else { showResults(); }
+  }
+
+  function showResults(){
+    show('res');
+    var total = answers.reduce(function(a,b){ return a + b; }, 0);
+
+    // band
+    var band;
+    if(total >= 80) band = { label: "Strong setup", color: "var(--green)", head: "You're running a tight ship.", sub: "Your banking is mostly out of your way. Here's where Novo can squeeze out the last bit of friction.", labelColor: "#1f9d6b" };
+    else if(total >= 50) band = { label: "Room to improve", color: "var(--amber)", head: "Solid — but it's costing you somewhere.", sub: "A few gaps are quietly eating time and cash. The good news: they're all fixable.", labelColor: "#b9790f" };
+    else band = { label: "Your bank may be costing you", color: "var(--red)", head: "Your bank is making your job harder.", sub: "This setup is working against your cash flow. Here's what better looks like.", labelColor: "#c0432f" };
+
+    var bl = document.getElementById('bandLabel');
+    bl.textContent = band.label; bl.style.color = band.labelColor;
+    document.getElementById('resHeadline').textContent = band.head;
+    document.getElementById('resSub').textContent = band.sub;
+    document.getElementById('scoreNum').style.color = band.color;
+
+    // animate score counter
+    var target = total, dur = 1400, start = null;
+    var el = document.getElementById('scoreNum');
+    function step(ts){
+      if(!start) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * target);
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+
+    // category bars
+    var cb = document.getElementById('catBars');
+    cb.innerHTML = '';
+    QUESTIONS.forEach(function(q, i){
+      var pts = answers[i];
+      var color = pts >= 15 ? 'var(--green)' : pts >= 10 ? 'var(--amber)' : 'var(--red)';
+      var row = document.createElement('div');
+      row.className = 'cat-row';
+      row.innerHTML = '<span class="cat-name">' + q.cat + '</span>' +
+        '<div class="cat-track"><div class="cat-fill" style="background:' + color + '"></div></div>' +
+        '<span class="cat-pts">' + pts + '/20</span>';
+      cb.appendChild(row);
+      var fill = row.querySelector('.cat-fill');
+      setTimeout(function(){ fill.style.width = (pts / 20 * 100) + '%'; }, 200 + i * 90);
+    });
+
+    // recommendations: two lowest-scoring categories
+    var ranked = QUESTIONS.map(function(q, i){ return { q: q, pts: answers[i], i: i }; })
+                          .sort(function(a, b){ return a.pts - b.pts; });
+    var recs = ranked.slice(0, 2);
+    var rl = document.getElementById('recList');
+    rl.innerHTML = '';
+    recs.forEach(function(r){
+      var d = document.createElement('div');
+      d.className = 'rec';
+      d.innerHTML = '<svg class="spark" width="15" height="15" viewBox="0 0 24 24"><path d="M11.765 0C12.178 6.628 17.482 11.887 24 11.998v.004c-6.52.111-11.822 5.37-12.235 11.998C11.361 17.53 6.303 12.368 0 12.02v-.037C6.303 11.634 11.363 6.47 11.765.003z"/></svg>' +
+        '<p><strong>' + r.q.low.t + '</strong> ' + r.q.low.b + '</p>';
+      rl.appendChild(d);
+    });
+
+    window._lastScore = total;
+  }
+
+  // toast
+  function toast(msg){
+    var t = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._t); t._t = setTimeout(function(){ t.classList.remove('show'); }, 2200);
+  }
+
+  document.getElementById('shareBtn').addEventListener('click', function(){
+    var s = window._lastScore != null ? window._lastScore : 0;
+    var text = "I just scored " + s + "/100 on my business banking health check. See how yours compares \u2192 novo.co/health-check";
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ toast('Copied to clipboard'); }, function(){ toast('Copied to clipboard'); });
+    } else { toast('Copied to clipboard'); }
+  });
+
+  document.getElementById('restartBtn').addEventListener('click', function(){
+    answers = []; current = 0; show('intro');
+  });
+</script>
+</body>
+</html>
