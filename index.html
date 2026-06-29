@@ -23,60 +23,65 @@
   }
 
   @media (prefers-reduced-motion: reduce){ * { animation: none !important; transition: none !important; } }
+  html { scroll-behavior: smooth; }
   body { font-family: var(--sans); background: var(--cream); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-  .wrap { max-width: 880px; margin: 0 auto; padding: 0 28px; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 28px; }
+
+  a:focus-visible, .card:focus-visible { outline: 2.5px solid var(--indigo); outline-offset: 3px; border-radius: 6px; }
 
   .legal-strip { background: var(--ink); color: #cfd3cb; font-size: 11.5px; text-align: center; padding: 8px 16px; }
-  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; max-width: 880px; margin: 0 auto; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; max-width: 900px; margin: 0 auto; }
   .wordmark { font-size: 26px; font-weight: 800; letter-spacing: -0.04em; }
   .wordmark::after { content:""; display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--indigo); margin-left:2px; vertical-align:2px; }
   .topbar .pill { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; }
 
   .spark path { fill: var(--indigo); }
+  .logo { display: inline-flex; align-items: center; }
 
   /* hero */
-  .hero { padding: 56px 0 40px; }
+  .hero { padding: 60px 0 38px; }
   .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--indigo); display: inline-flex; align-items: center; gap: 9px; margin-bottom: 22px; }
-  .hero h1 { font-size: clamp(34px, 6vw, 56px); font-weight: 800; letter-spacing: -0.035em; line-height: 1.0; max-width: 18ch; }
+  .hero h1 { font-size: clamp(36px, 6.2vw, 60px); font-weight: 800; letter-spacing: -0.038em; line-height: 0.98; max-width: 17ch; }
   .hero h1 em { font-style: normal; color: var(--indigo); }
-  .hero p { margin-top: 20px; font-size: 17px; color: var(--ink-soft); max-width: 56ch; }
-  .hero-meta { display: flex; gap: 20px; margin-top: 24px; flex-wrap: wrap; }
-  .hero-meta span { font-family: var(--mono); font-size: 12.5px; color: var(--ink-soft); display: flex; align-items: center; gap: 7px; }
-  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--indigo); }
+  .hero p { margin-top: 22px; font-size: 17.5px; color: var(--ink-soft); max-width: 54ch; }
+
+  /* lever spine — the real taxonomy of the three bets */
+  .levers { display: flex; align-items: center; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
+  .lever-key { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+  .lever-set { display: flex; gap: 8px; flex-wrap: wrap; }
+  .lever-chip { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--indigo); background: var(--indigo-tint); border-radius: 999px; padding: 5px 13px; }
 
   /* cards */
-  .cards { display: flex; flex-direction: column; gap: 16px; padding-bottom: 12px; }
+  .cards { display: flex; flex-direction: column; gap: 14px; padding-bottom: 8px; margin-top: 20px; }
   .card {
-    display: grid; grid-template-columns: 64px 1fr auto; gap: 22px; align-items: center;
+    display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center;
     background: var(--paper); border: 1px solid var(--line); border-radius: 22px;
-    padding: 26px 28px; text-decoration: none; color: inherit;
-    transition: transform .18s, box-shadow .18s, border-color .18s;
+    padding: 28px 30px; text-decoration: none; color: inherit; position: relative;
+    transition: transform .2s cubic-bezier(.22,1,.36,1), box-shadow .2s, border-color .2s;
   }
   .card:hover { transform: translateY(-3px); box-shadow: 0 18px 44px -26px rgba(36,45,35,.5); border-color: var(--indigo); }
-  .card-num { font-size: 40px; font-weight: 800; letter-spacing: -0.04em; color: var(--indigo); line-height: 1; font-variant-numeric: tabular-nums; }
-  .card-tag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px; }
-  .card-title { font-size: 21px; font-weight: 700; letter-spacing: -0.015em; }
-  .card-desc { font-size: 14.5px; color: var(--ink-soft); margin-top: 4px; max-width: 52ch; }
-  .card-go {
-    font-family: var(--sans); font-size: 14px; font-weight: 600; color: var(--indigo);
-    display: flex; align-items: center; gap: 6px; white-space: nowrap;
-  }
+
+  .card-lever { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
+  .card-lever .spark { flex-shrink: 0; }
+  .card-lever span { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--indigo); font-weight: 500; }
+  .card-title { font-size: 22px; font-weight: 700; letter-spacing: -0.018em; }
+  .card-desc { font-size: 15px; color: var(--ink-soft); margin-top: 6px; max-width: 56ch; }
+  .card-supp { font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em; color: var(--ink-soft); margin-top: 14px; }
+  .card-go { font-size: 14px; font-weight: 600; color: var(--indigo); display: flex; align-items: center; gap: 6px; white-space: nowrap; }
   .card-go .arrow { transition: transform .18s; }
   .card:hover .card-go .arrow { transform: translateX(4px); }
-  @media (max-width: 640px){
-    .card { grid-template-columns: 1fr; gap: 12px; padding: 24px 22px; }
-    .card-num { font-size: 30px; }
+  @media (max-width: 600px){
+    .card { grid-template-columns: 1fr; gap: 16px; padding: 24px 22px; }
     .card-go { justify-content: flex-start; }
   }
 
-  /* note */
-  .note { margin: 32px 0 16px; background: var(--indigo-tint); border-radius: 18px; padding: 22px 26px; font-size: 14.5px; color: var(--ink); line-height: 1.6; }
-  .note strong { font-weight: 700; }
-  .note .label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--indigo); display: block; margin-bottom: 8px; }
+  /* page-load reveal (signature) — only applied by JS when motion is allowed */
+  .reveal { opacity: 0; transform: translateY(14px); }
+  .reveal.in { opacity: 1; transform: translateY(0); transition: opacity .55s ease, transform .55s cubic-bezier(.22,1,.36,1); }
 
-  footer.site { padding: 28px 0 60px; }
+  footer.site { padding: 36px 0 60px; }
   .foot-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; border-top: 1px solid var(--line-soft); padding-top: 24px; }
-  .foot-note { font-size: 12px; color: var(--ink-soft); max-width: 60ch; }
+  .foot-note { font-size: 12px; color: var(--ink-soft); max-width: 64ch; }
 </style>
 </head>
 <body>
@@ -84,73 +89,91 @@
   <div class="legal-strip">Novo is a fintech, not a bank. Banking services provided by Middlesex Federal Savings, F.A. Member FDIC.</div>
 
   <div class="topbar">
-    <div class="wordmark">novo</div>
+    <span class="logo"><svg height="26" viewBox="0 0 704 172" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Novo" style="display:block;color:#1a1342;width:auto"><path fill="#3d44e3" d="M0 111.242v56.74h54.65V55.342c-14.494 0-28.394 5.888-38.643 16.37S0 96.412 0 111.236"/><path fill="#3d44e3" d="M54.638 0v55.9a53.6 53.6 0 0 1 20.923 4.246 54.6 54.6 0 0 1 17.738 12.117 56 56 0 0 1 11.849 18.14 57 57 0 0 1 4.153 21.399v56.176h54.663v-56.176a114 114 0 0 0-8.322-42.788c-5.495-13.565-13.548-25.89-23.7-36.272S109.738 14.125 96.474 8.507A107.2 107.2 0 0 0 54.638 0"/><path fill="currentColor" d="M218.102 57.223h31.302v15.57h2.124c8.033-12.516 18.404-18.811 31.516-18.811 24.529 0 40.823 19.468 40.823 46.076v67.928h-31.302v-63.391c0-13.636-7.624-23.154-20.314-23.154-12.476 0-22.847 10.169-22.847 24.224v62.321h-31.302zM338.174 112.605c0-35.7 23.899-58.823 60.065-58.823 35.959 0 60.078 23.154 60.078 58.823 0 35.908-24.119 58.824-60.078 58.824-36.166 0-60.065-23.154-60.065-58.824m88.627 0c0-18.385-11.846-31.37-28.562-31.37-16.917 0-28.757 12.985-28.757 31.37s11.846 31.583 28.757 31.583c16.716 0 28.562-13.197 28.562-31.583M458.797 57.225h32.991l26.237 84.586h2.117l26.438-84.586h32.783l-37.654 110.763h-45.258zM579.855 112.605c0-35.7 23.899-58.823 60.066-58.823 35.959 0 60.078 23.154 60.078 58.823 0 35.908-24.119 58.824-60.078 58.824-36.167 0-60.066-23.154-60.066-58.824m88.627 0c0-18.385-11.845-31.37-28.561-31.37-16.918 0-28.757 12.985-28.757 31.37s11.839 31.583 28.757 31.583c16.716 0 28.561-13.197 28.561-31.583"/></svg></span>
     <span class="pill">Community Prototypes</span>
   </div>
 
   <main class="wrap">
 
     <section class="hero">
-      <div class="eyebrow">
+      <div class="eyebrow reveal">
         <svg class="spark" width="16" height="16" viewBox="0 0 24 24"><path d="M11.765 0C12.178 6.628 17.482 11.887 24 11.998v.004c-6.52.111-11.822 5.37-12.235 11.998C11.361 17.53 6.303 12.368 0 12.02v-.037C6.303 11.634 11.363 6.47 11.765.003z"/></svg>
-        Community Marketing — Prototypes
+        Community Marketing
       </div>
-      <h1>Three ideas to grow the <em>independent business</em> community.</h1>
-      <p>Net-new community programs for Novo, built as working prototypes. Each is AI-native at its core and tied to a growth outcome — acquisition, conversion, or advocacy. Open any one to try it live.</p>
-      <div class="hero-meta">
-        <span><span class="dot"></span>3 prototypes</span>
-        <span><span class="dot"></span>Single-file HTML</span>
-        <span><span class="dot"></span>No dependencies</span>
+      <h1 class="reveal">Three new ways to bring <em>independent businesses</em> to Novo.</h1>
+      <p class="reveal">Each prototype is a different lever on the same goal — community programs that don't exist on Novo's channels yet, built to try live. Open any one below.</p>
+      <div class="levers reveal">
+        <span class="lever-key">The three bets</span>
+        <div class="lever-set">
+          <span class="lever-chip">Acquisition</span>
+          <span class="lever-chip">Conversion</span>
+          <span class="lever-chip">Advocacy</span>
+        </div>
       </div>
     </section>
 
     <div class="cards">
 
-      <a class="card" href="novo-smb-pulse-report.html">
-        <div class="card-num">01</div>
+      <a class="card reveal" href="novo-smb-pulse-report.html">
         <div>
-          <div class="card-tag">Acquisition + PR</div>
+          <div class="card-lever">
+            <svg class="spark" width="14" height="14" viewBox="0 0 24 24"><path d="M11.765 0C12.178 6.628 17.482 11.887 24 11.998v.004c-6.52.111-11.822 5.37-12.235 11.998C11.361 17.53 6.303 12.368 0 12.02v-.037C6.303 11.634 11.363 6.47 11.765.003z"/></svg>
+            <span>Acquisition — earns reach &amp; authority</span>
+          </div>
           <div class="card-title">The Novo Pulse Report</div>
-          <div class="card-desc">A quarterly research brief on the state of independent business — community intelligence turned into a press and SEO asset.</div>
+          <div class="card-desc">A quarterly research brief on the state of independent business — community intelligence turned into a press and SEO asset no competitor publishes.</div>
+          <div class="card-supp">Lead magnet · PR pitch · ownable whitespace</div>
         </div>
         <div class="card-go">Open <span class="arrow">→</span></div>
       </a>
 
-      <a class="card" href="novo-banking-health-check.html">
-        <div class="card-num">02</div>
+      <a class="card reveal" href="novo-banking-health-check.html">
         <div>
-          <div class="card-tag">Acquisition + Conversion</div>
+          <div class="card-lever">
+            <svg class="spark" width="14" height="14" viewBox="0 0 24 24"><path d="M11.765 0C12.178 6.628 17.482 11.887 24 11.998v.004c-6.52.111-11.822 5.37-12.235 11.998C11.361 17.53 6.303 12.368 0 12.02v-.037C6.303 11.634 11.363 6.47 11.765.003z"/></svg>
+            <span>Conversion — turns intent into accounts</span>
+          </div>
           <div class="card-title">Business Banking Health Check</div>
-          <div class="card-desc">A five-question self-assessment that scores a banking setup 0–100, then gives personalized, shareable recommendations.</div>
+          <div class="card-desc">A five-question self-assessment that scores a banking setup 0–100, then hands back recommendations tied to exactly where the owner falls short.</div>
+          <div class="card-supp">Shareable score · contextual CTA · self-identified gap</div>
         </div>
         <div class="card-go">Open <span class="arrow">→</span></div>
       </a>
 
-      <a class="card" href="novo-100.html">
-        <div class="card-num">03</div>
+      <a class="card reveal" href="novo-100.html">
         <div>
-          <div class="card-tag">Advocacy + PR</div>
+          <div class="card-lever">
+            <svg class="spark" width="14" height="14" viewBox="0 0 24 24"><path d="M11.765 0C12.178 6.628 17.482 11.887 24 11.998v.004c-6.52.111-11.822 5.37-12.235 11.998C11.361 17.53 6.303 12.368 0 12.02v-.037C6.303 11.634 11.363 6.47 11.765.003z"/></svg>
+            <span>Advocacy — 100 owners share it for you</span>
+          </div>
           <div class="card-title">The Novo 100</div>
-          <div class="card-desc">An annual recognition program for 100 standout owners — nomination, voting, and a searchable winners showcase.</div>
+          <div class="card-desc">An annual recognition program for 100 standout owners — nomination, voting, and a searchable winners showcase that doubles as a yearly press moment.</div>
+          <div class="card-supp">Peer-nominated · organic reach · annual list</div>
         </div>
         <div class="card-go">Open <span class="arrow">→</span></div>
       </a>
 
-    </div>
-
-    <div class="note">
-      <span class="label">Note on branding</span>
-      Pages are designed against Novo's live visual identity — indigo <strong>#3D44E3</strong>, warm paper, the four-point spark, and the "independent businesses" voice. All figures and names are <strong>sample data</strong>, clearly labeled throughout.
     </div>
 
     <footer class="site">
       <div class="foot-row">
-        <div class="wordmark" style="font-size:20px;">novo</div>
-        <div class="foot-note">Novo Community — Agent Handoff prototypes. Sample data for prototype use. Novo is a fintech, not a bank. Banking services provided by Middlesex Federal Savings, F.A. Member FDIC.</div>
+        <span class="logo"><svg height="20" viewBox="0 0 704 172" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Novo" style="display:block;color:#1a1342;width:auto"><path fill="#3d44e3" d="M0 111.242v56.74h54.65V55.342c-14.494 0-28.394 5.888-38.643 16.37S0 96.412 0 111.236"/><path fill="#3d44e3" d="M54.638 0v55.9a53.6 53.6 0 0 1 20.923 4.246 54.6 54.6 0 0 1 17.738 12.117 56 56 0 0 1 11.849 18.14 57 57 0 0 1 4.153 21.399v56.176h54.663v-56.176a114 114 0 0 0-8.322-42.788c-5.495-13.565-13.548-25.89-23.7-36.272S109.738 14.125 96.474 8.507A107.2 107.2 0 0 0 54.638 0"/><path fill="currentColor" d="M218.102 57.223h31.302v15.57h2.124c8.033-12.516 18.404-18.811 31.516-18.811 24.529 0 40.823 19.468 40.823 46.076v67.928h-31.302v-63.391c0-13.636-7.624-23.154-20.314-23.154-12.476 0-22.847 10.169-22.847 24.224v62.321h-31.302zM338.174 112.605c0-35.7 23.899-58.823 60.065-58.823 35.959 0 60.078 23.154 60.078 58.823 0 35.908-24.119 58.824-60.078 58.824-36.166 0-60.065-23.154-60.065-58.824m88.627 0c0-18.385-11.846-31.37-28.562-31.37-16.917 0-28.757 12.985-28.757 31.37s11.846 31.583 28.757 31.583c16.716 0 28.562-13.197 28.562-31.583M458.797 57.225h32.991l26.237 84.586h2.117l26.438-84.586h32.783l-37.654 110.763h-45.258zM579.855 112.605c0-35.7 23.899-58.823 60.066-58.823 35.959 0 60.078 23.154 60.078 58.823 0 35.908-24.119 58.824-60.078 58.824-36.167 0-60.066-23.154-60.066-58.824m88.627 0c0-18.385-11.845-31.37-28.561-31.37-16.918 0-28.757 12.985-28.757 31.37s11.839 31.583 28.757 31.583c16.716 0 28.561-13.197 28.561-31.583"/></svg></span>
+        <div class="foot-note">Novo Community prototypes · indigo #3D44E3, four-point spark, "independent businesses" voice. All figures and names are sample data. Novo is a fintech, not a bank. Banking services provided by Middlesex Federal Savings, F.A. Member FDIC.</div>
       </div>
     </footer>
 
   </main>
 
+<script>
+  // Signature: staggered load reveal, only when motion is welcome.
+  (function(){
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.reveal');
+    if(reduce){ els.forEach(function(el){ el.classList.remove('reveal'); }); return; }
+    els.forEach(function(el, i){
+      setTimeout(function(){ el.classList.add('in'); }, 90 * i + 80);
+    });
+  })();
+</script>
 </body>
 </html>
