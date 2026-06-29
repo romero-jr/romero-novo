@@ -266,6 +266,7 @@
 
   <div class="toast" id="toast">Link copied</div>
 
+<script src="data.js"></script>
 <script>
   // ---------- tabs ----------
   var tabs = document.querySelectorAll('.tab');
@@ -372,20 +373,16 @@
 
   document.getElementById('search').addEventListener('input', function(e){ query = e.target.value; render(); });
 
-  fetch('data.json')
-    .then(function(r){ return r.json(); })
-    .then(function(d){
-      CATS = d.novo100.categories;
-      CAT_COLOR = d.novo100.categoryColors;
-      AV_COLORS = d.novo100.avatarColors;
-      WINNERS = d.novo100.winners;
-      buildFilters();
-      render();
-    })
-    .catch(function(err){
-      console.error('Could not load data.json', err);
-      document.getElementById('grid').innerHTML = '<div class="no-results">Content couldn\u2019t load. This page reads from data.json, so it needs to be served over HTTP (GitHub Pages, or a local server) rather than opened directly from disk.</div>';
-    });
+  if (typeof NOVO_DATA !== 'undefined') {
+    CATS = NOVO_DATA.novo100.categories;
+    CAT_COLOR = NOVO_DATA.novo100.categoryColors;
+    AV_COLORS = NOVO_DATA.novo100.avatarColors;
+    WINNERS = NOVO_DATA.novo100.winners;
+    buildFilters();
+    render();
+  } else {
+    document.getElementById('grid').innerHTML = '<div class="no-results">Content failed to load (data.js missing).</div>';
+  }
 
   // ---------- footer actions ----------
   document.getElementById('ctaNominate').addEventListener('click', function(){

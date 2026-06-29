@@ -324,6 +324,7 @@
     <span id="toastMsg">Link copied</span>
   </div>
 
+<script src="data.js"></script>
 <script>
   // ---------- email capture ----------
   (function(){
@@ -396,13 +397,8 @@
     document.getElementById('methodBody').textContent = p.methodology.body;
   }
 
-  fetch('data.json')
-    .then(function(r){ return r.json(); })
-    .then(function(d){ render(d.pulse); })
-    .catch(function(err){
-      console.error('Could not load data.json', err);
-      document.getElementById('findings').innerHTML = '<div style="color:var(--ink-soft);font-size:14px;line-height:1.6">Content couldn\u2019t load. This page reads from data.json, so it needs to be served over HTTP (GitHub Pages, or a local server) rather than opened directly from disk.</div>';
-    });
+  if (typeof NOVO_DATA !== 'undefined') { render(NOVO_DATA.pulse); }
+  else { document.getElementById('findings').innerHTML = '<div style="color:var(--ink-soft);font-size:14px">Content failed to load (data.js missing).</div>'; }
 </script>
 </body>
 </html>

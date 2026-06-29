@@ -41,6 +41,9 @@
   /* cover letter */
   .cover { padding: 56px 0 8px; }
   .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--indigo); display: inline-flex; align-items: center; gap: 9px; margin-bottom: 22px; }
+  .byline { margin-bottom: 28px; }
+  .byline-kicker { display: inline-flex; align-items: center; gap: 9px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--indigo); }
+  .byline-name { display: block; margin-top: 10px; font-size: clamp(26px, 4.4vw, 38px); font-weight: 800; letter-spacing: -0.025em; color: var(--navy); line-height: 1; }
   .cover h1 { font-size: clamp(38px, 7vw, 72px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.06; max-width: 16ch; text-transform: uppercase; color: #0d0d0d; }
   .cover h1 em { font-style: normal; color: var(--indigo); }
   .lead { margin-top: 24px; max-width: 64ch; }
@@ -107,9 +110,12 @@
   <main class="wrap">
 
     <section class="cover">
-      <div class="eyebrow reveal">
-        <svg class="spark" width="16" height="16" viewBox="0 0 24 24"><path d="M11.765 0C12.178 6.628 17.482 11.887 24 11.998v.004c-6.52.111-11.822 5.37-12.235 11.998C11.361 17.53 6.303 12.368 0 12.02v-.037C6.303 11.634 11.363 6.47 11.765.003z"/></svg>
-        A note from Miguel Romero
+      <div class="byline reveal">
+        <span class="byline-kicker">
+          <svg class="spark" width="15" height="15" viewBox="0 0 24 24"><path d="M11.765 0C12.178 6.628 17.482 11.887 24 11.998v.004c-6.52.111-11.822 5.37-12.235 11.998C11.361 17.53 6.303 12.368 0 12.02v-.037C6.303 11.634 11.363 6.47 11.765.003z"/></svg>
+          A note from
+        </span>
+        <span class="byline-name">Miguel Romero</span>
       </div>
       <h1 class="reveal">Three community prototypes for <span class="hl">Novo</span>.</h1>
       <div class="lead">

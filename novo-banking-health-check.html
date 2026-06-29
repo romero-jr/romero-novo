@@ -223,6 +223,7 @@
     <span id="toastMsg">Copied to clipboard</span>
   </div>
 
+<script src="data.js"></script>
 <script>
   var QUESTIONS = [];
   var BANDS = [];
@@ -355,15 +356,14 @@
     answers = []; current = 0; show('intro');
   });
 
-  // ---------- load content from data.json ----------
-  (function(){
-    var sb = document.getElementById('startBtn');
-    sb.disabled = true;
-    fetch('data.json')
-      .then(function(r){ return r.json(); })
-      .then(function(d){ QUESTIONS = d.healthCheck.questions; BANDS = d.healthCheck.bands; sb.disabled = false; })
-      .catch(function(err){ console.error('Could not load data.json', err); sb.textContent = 'Content failed to load'; });
-  })();
+  // ---------- load content ----------
+  if (typeof NOVO_DATA !== 'undefined') {
+    QUESTIONS = NOVO_DATA.healthCheck.questions;
+    BANDS = NOVO_DATA.healthCheck.bands;
+  } else {
+    document.getElementById('startBtn').textContent = 'Content failed to load';
+    document.getElementById('startBtn').disabled = true;
+  }
 </script>
 </body>
 </html>
