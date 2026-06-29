@@ -11,9 +11,11 @@
     --ink: #242d23;
     --ink-soft: #4a5147;
     --indigo: #3d44e3;
+    --black: #0d0d0d;
+    --lav: #cbc7f5;
     --indigo-deep: #2a30b8;
     --indigo-tint: #ebecfb;
-    --cream: #f4f1e8;
+    --cream: #f2f1ea;
     --cream-deep: #ece8db;
     --paper: #ffffff;
     --line: #d8d3c4;
@@ -57,12 +59,12 @@
   .nav-right { display: flex; align-items: center; gap: 12px; }
   .btn {
     font-family: var(--sans); font-size: 14px; font-weight: 600;
-    border-radius: 999px; padding: 10px 20px; cursor: pointer;
+    border-radius: 14px; padding: 10px 20px; cursor: pointer;
     border: 1.5px solid transparent; text-decoration: none; display: inline-block;
     transition: background .18s, color .18s, border-color .18s, transform .12s;
   }
-  .btn-primary { background: var(--indigo); color: #fff; }
-  .btn-primary:hover { background: var(--indigo-deep); transform: translateY(-1px); }
+  .btn-primary { background: var(--black); color: #fff; }
+  .btn-primary:hover { background: #000; transform: translateY(-1px); }
   .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
   .btn-ghost:hover { border-color: var(--ink); }
   .topbar .btn { padding: 8px 16px; }
@@ -81,7 +83,7 @@
   }
   .report-title {
     font-size: clamp(40px, 7vw, 76px); font-weight: 800; line-height: 0.98;
-    letter-spacing: -0.035em; max-width: 14ch;
+    letter-spacing: -0.03em; max-width: 14ch; text-transform: uppercase; color: #0d0d0d;
   }
   .report-title em { font-style: normal; color: var(--indigo); }
   .hero-sub {
@@ -123,7 +125,7 @@
   /* ---------- section heads ---------- */
   .section { padding: 56px 0; border-top: 1px solid var(--line-soft); }
   .sec-eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 10px; }
-  .sec-title { font-size: clamp(26px, 4vw, 36px); font-weight: 800; letter-spacing: -0.02em; max-width: 22ch; }
+  .sec-title { font-size: clamp(26px, 4vw, 36px); font-weight: 800; letter-spacing: -0.02em; max-width: 22ch; text-transform: uppercase; color: #0d0d0d; }
 
   /* ---------- findings grid ---------- */
   .findings { margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -175,10 +177,10 @@
   .method-body { font-size: 16px; color: var(--ink-soft); line-height: 1.6; }
 
   /* ---------- footer CTA ---------- */
-  .footer-cta { background: var(--indigo); color: #fff; border-radius: 30px; margin: 56px 0; padding: 56px 44px; text-align: center; }
-  .footer-cta h2 { font-size: clamp(28px, 5vw, 44px); font-weight: 800; letter-spacing: -0.025em; max-width: 18ch; margin: 0 auto 8px; }
-  .footer-cta p { color: #d4d6f9; font-size: 16px; margin-bottom: 28px; }
-  .footer-cta .btn-primary { background: #fff; color: var(--indigo); }
+  .footer-cta { background: var(--black); color: #fff; border-radius: 30px; margin: 56px 0; padding: 56px 44px; text-align: center; }
+  .footer-cta h2 { font-size: clamp(28px, 5vw, 44px); font-weight: 800; letter-spacing: -0.025em; max-width: 18ch; margin: 0 auto 8px; text-transform: uppercase; }
+  .footer-cta p { color: #b9b9c6; font-size: 16px; margin-bottom: 28px; }
+  .footer-cta .btn-primary { background: #fff; color: var(--black); }
   .footer-cta .btn-primary:hover { background: #ece8db; }
   .footer-cta .btn-ghost { color: #fff; border-color: rgba(255,255,255,.45); margin-left: 10px; }
   .footer-cta .btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,.08); }
@@ -210,6 +212,7 @@
   .back-fab:hover svg { transform: translateX(-3px); }
   .back-fab:focus-visible { outline: 2.5px solid var(--indigo); outline-offset: 3px; }
   @media (max-width: 560px){ .back-fab span { display: none; } .back-fab { padding: 13px; left: 16px; bottom: 16px; } }
+  .hl { background: var(--lav); padding: 0 .12em; border-radius: 3px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 </style>
 </head>
 <body>
@@ -238,7 +241,7 @@
         <svg class="spark" width="16" height="16" viewBox="0 0 24 24"><path d="M11.765 0C12.178 6.628 17.482 11.887 24 11.998v.004c-6.52.111-11.822 5.37-12.235 11.998C11.361 17.53 6.303 12.368 0 12.02v-.037C6.303 11.634 11.363 6.47 11.765.003z"/></svg>
         The Novo Pulse — State of Independent Business
       </div>
-      <h1 class="report-title">What <em>250,000</em> independent businesses are telling us.</h1>
+      <h1 class="report-title">What <span class="hl">250,000</span> independent businesses are telling us.</h1>
       <p class="hero-sub">A quarterly read on the financial health of the people building something of their own — sourced from the Novo community, surveys, and what owners are talking about right now.</p>
 
       <div class="headline-stat">

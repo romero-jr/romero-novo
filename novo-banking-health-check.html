@@ -11,9 +11,11 @@
     --ink: #242d23;
     --ink-soft: #555c52;
     --indigo: #3d44e3;
+    --black: #0d0d0d;
+    --lav: #cbc7f5;
     --indigo-deep: #2a30b8;
     --indigo-tint: #ebecfb;
-    --cream: #f4f1e8;
+    --cream: #f2f1ea;
     --paper: #ffffff;
     --line: #ddd8ca;
     --green: #1f9d6b;
@@ -55,7 +57,7 @@
   @keyframes slideIn { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
 
   /* intro */
-  .intro-h { font-size: clamp(28px, 5vw, 38px); font-weight: 800; letter-spacing: -0.025em; line-height: 1.05; }
+  .intro-h { font-size: clamp(30px, 5.5vw, 46px); font-weight: 800; letter-spacing: -0.025em; line-height: 1.0; text-transform: uppercase; color: #0d0d0d; }
   .intro-h em { font-style: normal; color: var(--indigo); }
   .intro-sub { margin-top: 16px; font-size: 16.5px; color: var(--ink-soft); }
   .meta-row { display: flex; gap: 18px; margin: 26px 0 30px; flex-wrap: wrap; }
@@ -63,12 +65,12 @@
   .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--indigo); }
 
   .btn {
-    font-family: var(--sans); font-size: 16px; font-weight: 600; border-radius: 999px;
+    font-family: var(--sans); font-size: 16px; font-weight: 600; border-radius: 14px;
     padding: 15px 28px; cursor: pointer; border: 1.5px solid transparent; text-decoration: none;
     display: inline-block; transition: background .18s, transform .12s, border-color .18s; width: 100%; text-align: center;
   }
-  .btn-primary { background: var(--indigo); color: #fff; }
-  .btn-primary:hover { background: var(--indigo-deep); transform: translateY(-1px); }
+  .btn-primary { background: var(--black); color: #fff; }
+  .btn-primary:hover { background: #000; transform: translateY(-1px); }
 
   /* progress */
   .progress-wrap { margin-bottom: 28px; }
@@ -138,6 +140,7 @@
   .back-fab:focus-visible { outline: 2.5px solid var(--indigo); outline-offset: 3px; }
   @media (max-width: 560px){ .back-fab span { display: none; } .back-fab { padding: 13px; left: 16px; bottom: 16px; } }
   .btn:disabled { opacity: .55; cursor: default; }
+  .hl { background: var(--lav); padding: 0 .12em; border-radius: 3px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 </style>
 </head>
 <body>
@@ -162,7 +165,7 @@
           <svg class="spark" width="16" height="16" viewBox="0 0 24 24"><path d="M11.765 0C12.178 6.628 17.482 11.887 24 11.998v.004c-6.52.111-11.822 5.37-12.235 11.998C11.361 17.53 6.303 12.368 0 12.02v-.037C6.303 11.634 11.363 6.47 11.765.003z"/></svg>
           60-second check
         </div>
-        <h1 class="intro-h">Is your business banking working as hard as <em>you</em> do?</h1>
+        <h1 class="intro-h">Is your business banking working as hard as <span class="hl">you</span> do?</h1>
         <p class="intro-sub">Answer five quick questions and get your Business Banking Health Score — plus exactly where you're leaving time and money on the table.</p>
         <div class="meta-row">
           <span><span class="dot"></span>5 questions</span>

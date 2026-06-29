@@ -11,9 +11,11 @@
     --ink: #242d23;
     --ink-soft: #555c52;
     --indigo: #3d44e3;
+    --black: #0d0d0d;
+    --lav: #cbc7f5;
     --indigo-deep: #2a30b8;
     --indigo-tint: #ebecfb;
-    --cream: #f4f1e8;
+    --cream: #f2f1ea;
     --cream-deep: #ece8db;
     --paper: #ffffff;
     --line: #ddd8ca;
@@ -31,9 +33,9 @@
   .topbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; max-width: 1080px; margin: 0 auto; }
   .wordmark { font-size: 26px; font-weight: 800; letter-spacing: -0.04em; }
   .wordmark::after { content:""; display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--indigo); margin-left:2px; vertical-align:2px; }
-  .btn { font-family: var(--sans); font-size: 14px; font-weight: 600; border-radius: 999px; padding: 10px 20px; cursor: pointer; border: 1.5px solid transparent; text-decoration: none; display: inline-block; transition: background .18s, color .18s, border-color .18s, transform .12s; }
-  .btn-primary { background: var(--indigo); color: #fff; }
-  .btn-primary:hover { background: var(--indigo-deep); transform: translateY(-1px); }
+  .btn { font-family: var(--sans); font-size: 14px; font-weight: 600; border-radius: 14px; padding: 10px 20px; cursor: pointer; border: 1.5px solid transparent; text-decoration: none; display: inline-block; transition: background .18s, color .18s, border-color .18s, transform .12s; }
+  .btn-primary { background: var(--black); color: #fff; }
+  .btn-primary:hover { background: #000; transform: translateY(-1px); }
   .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
   .btn-ghost:hover { border-color: var(--ink); }
   .topbar .btn { padding: 8px 16px; }
@@ -52,7 +54,7 @@
   .status-pill .live-dot::after { content:""; position:absolute; inset:-4px; border-radius:50%; border:1.5px solid var(--indigo); opacity:.5; animation: ping 1.8s ease-out infinite; }
   @keyframes ping { 0%{ transform: scale(.8); opacity:.6; } 100%{ transform: scale(1.8); opacity:0; } }
 
-  .lockup { font-size: clamp(56px, 13vw, 132px); font-weight: 800; letter-spacing: -0.05em; line-height: 0.86; }
+  .lockup { font-size: clamp(56px, 13vw, 132px); font-weight: 800; letter-spacing: -0.05em; line-height: 0.86; text-transform: uppercase; }
   .lockup .hundred { color: var(--indigo); }
   .year-badge { font-family: var(--mono); font-size: 14px; letter-spacing: 0.18em; color: var(--ink-soft); margin-top: 18px; }
   .hero-desc { max-width: 46ch; margin: 22px auto 0; font-size: 17px; color: var(--ink-soft); }
@@ -136,9 +138,9 @@
   .no-results { text-align: center; color: var(--ink-soft); font-size: 15px; padding: 40px 0; grid-column: 1 / -1; }
 
   /* footer */
-  .footer-cta { background: var(--ink); color: #fff; border-radius: 30px; margin: 56px 0; padding: 54px 44px; text-align: center; }
-  .footer-cta h2 { font-size: clamp(26px, 4.5vw, 40px); font-weight: 800; letter-spacing: -0.025em; max-width: 20ch; margin: 0 auto 24px; }
-  .footer-cta .btn-primary { background: #fff; color: var(--ink); }
+  .footer-cta { background: var(--black); color: #fff; border-radius: 30px; margin: 56px 0; padding: 54px 44px; text-align: center; }
+  .footer-cta h2 { font-size: clamp(26px, 4.5vw, 40px); font-weight: 800; letter-spacing: -0.025em; max-width: 20ch; margin: 0 auto 24px; text-transform: uppercase; }
+  .footer-cta .btn-primary { background: #fff; color: var(--black); }
   .footer-cta .btn-primary:hover { background: var(--cream-deep); }
   .footer-cta .btn-ghost { color: #fff; border-color: rgba(255,255,255,.4); margin-left: 10px; }
   .footer-cta .btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,.08); }
@@ -157,6 +159,7 @@
   .back-fab:hover svg { transform: translateX(-3px); }
   .back-fab:focus-visible { outline: 2.5px solid var(--indigo); outline-offset: 3px; }
   @media (max-width: 560px){ .back-fab span { display: none; } .back-fab { padding: 13px; left: 16px; bottom: 16px; } }
+  .hl { background: var(--lav); padding: 0 .12em; border-radius: 3px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 </style>
 </head>
 <body>
