@@ -137,6 +137,7 @@
   .back-fab:hover svg { transform: translateX(-3px); }
   .back-fab:focus-visible { outline: 2.5px solid var(--indigo); outline-offset: 3px; }
   @media (max-width: 560px){ .back-fab span { display: none; } .back-fab { padding: 13px; left: 16px; bottom: 16px; } }
+  .btn:disabled { opacity: .55; cursor: default; }
 </style>
 </head>
 <body>
@@ -215,23 +216,8 @@
   </div>
 
 <script>
-  var QUESTIONS = [
-    { cat: "Fees", text: "How much do you pay in monthly banking fees?",
-      opts: [["$0", 20], ["$10–$25", 15], ["$25–$50", 10], ["$50+", 0]],
-      low: { t: "You're paying for the privilege of banking.", b: "Novo charges <strong>no monthly fees, no minimums, and no hidden charges</strong> — that money stays in your business." } },
-    { cat: "Speed", text: "How long does it take to send or receive payments?",
-      opts: [["Same day", 20], ["1–2 days", 15], ["3–5 days", 10], ["5+ days", 0]],
-      low: { t: "Slow money is a cash-flow problem.", b: "With Novo you can send free standard ACH and get paid faster, so you're not waiting days to use your own money." } },
-    { cat: "Integrations", text: "Does your bank connect with your business tools?",
-      opts: [["Yes, seamlessly", 20], ["Some tools", 15], ["Manually", 10], ["Not at all", 0]],
-      low: { t: "You're the integration.", b: "Novo connects directly with <strong>Stripe, Shopify, QuickBooks</strong> and more — so your books, payments, and bank stay in sync." } },
-    { cat: "Visibility", text: "How easily can you see your cash flow in real time?",
-      opts: [["Instantly", 20], ["Daily", 15], ["Weekly", 10], ["I check manually", 0]],
-      low: { t: "Guessing at your balance is expensive.", b: "Novo shows what's in, what's out, and what's available in real time — no spreadsheet archaeology required." } },
-    { cat: "Support", text: "When a banking issue comes up, how easy is it to get help?",
-      opts: [["Very easy", 20], ["Somewhat easy", 15], ["Frustrating", 10], ["I dread it", 0]],
-      low: { t: "You shouldn't dread your bank.", b: "Novo's support is built for independent businesses — real help when something's on the line, without the runaround." } }
-  ];
+  var QUESTIONS = [];
+  var BANDS = [];
 
   var answers = [];   // points per question
   var current = 0;
@@ -288,10 +274,7 @@
     var total = answers.reduce(function(a,b){ return a + b; }, 0);
 
     // band
-    var band;
-    if(total >= 80) band = { label: "Strong setup", color: "var(--green)", head: "You're running a tight ship.", sub: "Your banking is mostly out of your way. Here's where Novo can squeeze out the last bit of friction.", labelColor: "#1f9d6b" };
-    else if(total >= 50) band = { label: "Room to improve", color: "var(--amber)", head: "Solid — but it's costing you somewhere.", sub: "A few gaps are quietly eating time and cash. The good news: they're all fixable.", labelColor: "#b9790f" };
-    else band = { label: "Your bank may be costing you", color: "var(--red)", head: "Your bank is making your job harder.", sub: "This setup is working against your cash flow. Here's what better looks like.", labelColor: "#c0432f" };
+    var band = BANDS.find(function(b){ return total >= b.min; }) || BANDS[BANDS.length - 1];
 
     var bl = document.getElementById('bandLabel');
     bl.textContent = band.label; bl.style.color = band.labelColor;
@@ -363,6 +346,16 @@
   document.getElementById('restartBtn').addEventListener('click', function(){
     answers = []; current = 0; show('intro');
   });
+
+  // ---------- load content from data.json ----------
+  (function(){
+    var sb = document.getElementById('startBtn');
+    sb.disabled = true;
+    fetch('data.json')
+      .then(function(r){ return r.json(); })
+      .then(function(d){ QUESTIONS = d.healthCheck.questions; BANDS = d.healthCheck.bands; sb.disabled = false; })
+      .catch(function(err){ console.error('Could not load data.json', err); sb.textContent = 'Content failed to load'; });
+  })();
 </script>
 </body>
 </html>

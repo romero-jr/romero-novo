@@ -308,55 +308,35 @@
     document.getElementById('voteForm').innerHTML = '<div class="soon-done">We\u2019ll remind you when voting opens.</div>';
   });
 
-  // ---------- winners data ----------
-  var CATS = ['All','Freelancer','Retail','Services','Ecommerce','Startup','Food & Beverage'];
-  var CAT_COLOR = {
-    'Freelancer': ['#ebecfb','#3d44e3'], 'Retail': ['#fdeede','#b9790f'],
-    'Services': ['#e4f3ec','#1f9d6b'], 'Ecommerce': ['#f1e9fb','#7a52d6'],
-    'Startup': ['#fde9e6','#c0432f'], 'Food & Beverage': ['#fbf3dc','#9a7a14']
-  };
-  var AV_COLORS = ['#3d44e3','#242d23','#7a52d6','#1f9d6b','#c0432f','#b9790f','#2a30b8','#4a5147'];
-
-  var WINNERS = [
-    { name:'Imani Brooks', biz:'Cedar & Clay Ceramics', loc:'Asheville, NC', cat:'Retail', desc:'Turned a garage kiln into a wholesale studio supplying 40 shops across the Southeast.' },
-    { name:'Daniel Park', biz:'Park Mobile Diagnostics', loc:'Sacramento, CA', cat:'Services', desc:'Brings the auto shop to the driveway — booked solid three weeks out, no storefront.' },
-    { name:'Sofia Marquez', biz:'La Lengua Language Co.', loc:'San Antonio, TX', cat:'Freelancer', desc:'Solo translator who now subcontracts a network of 12 linguists nationwide.' },
-    { name:'Marcus Webb', biz:'Webb Bros. Cold Brew', loc:'Detroit, MI', cat:'Food & Beverage', desc:'Went from farmers-market cart to 200 grocery doors in 18 months.' },
-    { name:'Aaliyah Carter', biz:'Knot & Grain Studio', loc:'Portland, ME', cat:'Ecommerce', desc:'Handmade home goods shop shipping 500 orders a month from a converted barn.' },
-    { name:'Hassan Ali', biz:'Northstar Logistics AI', loc:'Columbus, OH', cat:'Startup', desc:'Built routing software for small freight haulers; six employees and growing.' },
-    { name:'Grace Liu', biz:'Liu Family Acupuncture', loc:'Seattle, WA', cat:'Services', desc:'Third-generation practice modernized with online booking and a sliding scale.' },
-    { name:'Tobias Reed', biz:'Reed Letterpress', loc:'Richmond, VA', cat:'Retail', desc:'Restored century-old presses into a thriving wedding-stationery business.' },
-    { name:'Yuki Tanaka', biz:'Tanaka Test Kitchen', loc:'Honolulu, HI', cat:'Food & Beverage', desc:'Pop-up turned permanent — a 20-seat counter with a six-month waitlist.' },
-    { name:'Brianna Scott', biz:'Scott Creative Freelance', loc:'Nashville, TN', cat:'Freelancer', desc:'Brand designer who built a referral-only practice with zero ad spend.' },
-    { name:'Omar Haddad', biz:'Cedar Box Subscriptions', loc:'Minneapolis, MN', cat:'Ecommerce', desc:'Curated goods box that grew to 8,000 subscribers on word of mouth alone.' },
-    { name:'Nina Petrov', biz:'Bright Lane Tutoring', loc:'Denver, CO', cat:'Startup', desc:'Built a tutor marketplace serving 30 schools after starting at her kitchen table.' }
-  ];
-
+  // ---------- winners (loaded from data.json) ----------
+  var CATS = [], CAT_COLOR = {}, AV_COLORS = [], WINNERS = [];
   var activeFilter = 'All';
   var query = '';
 
-  // build filter pills
-  var filtersEl = document.getElementById('filters');
-  CATS.forEach(function(c){
-    var b = document.createElement('button');
-    b.className = 'filter-pill' + (c === 'All' ? ' active' : '');
-    b.textContent = c;
-    b.addEventListener('click', function(){
-      activeFilter = c;
-      document.querySelectorAll('.filter-pill').forEach(function(p){ p.classList.remove('active'); });
-      b.classList.add('active');
-      render();
-    });
-    filtersEl.appendChild(b);
-  });
-
   function initials(name){ return name.split(' ').map(function(w){ return w[0]; }).join('').slice(0,2).toUpperCase(); }
+
+  function buildFilters(){
+    var filtersEl = document.getElementById('filters');
+    filtersEl.innerHTML = '';
+    CATS.forEach(function(c){
+      var b = document.createElement('button');
+      b.className = 'filter-pill' + (c === 'All' ? ' active' : '');
+      b.textContent = c;
+      b.addEventListener('click', function(){
+        activeFilter = c;
+        document.querySelectorAll('.filter-pill').forEach(function(p){ p.classList.remove('active'); });
+        b.classList.add('active');
+        render();
+      });
+      filtersEl.appendChild(b);
+    });
+  }
 
   function render(){
     var grid = document.getElementById('grid');
     grid.innerHTML = '';
     var q = query.toLowerCase();
-    var shown = WINNERS.filter(function(w, i){
+    var shown = WINNERS.filter(function(w){
       var matchCat = activeFilter === 'All' || w.cat === activeFilter;
       var matchQ = !q || w.name.toLowerCase().indexOf(q) > -1 || w.biz.toLowerCase().indexOf(q) > -1;
       return matchCat && matchQ;
@@ -365,7 +345,7 @@
       grid.innerHTML = '<div class="no-results">No one matches that yet. Try a different category or search.</div>';
       return;
     }
-    shown.forEach(function(w, i){
+    shown.forEach(function(w){
       var col = CAT_COLOR[w.cat] || ['#ebecfb','#3d44e3'];
       var av = AV_COLORS[WINNERS.indexOf(w) % AV_COLORS.length];
       var card = document.createElement('div');
@@ -383,7 +363,21 @@
   }
 
   document.getElementById('search').addEventListener('input', function(e){ query = e.target.value; render(); });
-  render();
+
+  fetch('data.json')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      CATS = d.novo100.categories;
+      CAT_COLOR = d.novo100.categoryColors;
+      AV_COLORS = d.novo100.avatarColors;
+      WINNERS = d.novo100.winners;
+      buildFilters();
+      render();
+    })
+    .catch(function(err){
+      console.error('Could not load data.json', err);
+      document.getElementById('grid').innerHTML = '<div class="no-results">Content couldn\u2019t load. This page reads from data.json, so it needs to be served over HTTP (GitHub Pages, or a local server) rather than opened directly from disk.</div>';
+    });
 
   // ---------- footer actions ----------
   document.getElementById('ctaNominate').addEventListener('click', function(){

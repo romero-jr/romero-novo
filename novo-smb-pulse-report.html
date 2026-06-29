@@ -243,8 +243,8 @@
 
       <div class="headline-stat">
         <svg class="grommet" viewBox="0 0 12 12" fill="none"><path fill="#3d44e3" d="M0 10a2 2 0 0 0 2 2h9.111c.491 0 .889-.398.889-.889C12 4.975 7.025 0 .889 0A.89.89 0 0 0 0 .889z"/></svg>
-        <div class="hstat-num">73<span>%</span></div>
-        <div class="hstat-copy">of independent business owners name <strong>cash flow</strong> as their number one financial concern heading into the second half of 2026 — ahead of taxes, hiring, and access to credit.</div>
+        <div class="hstat-num" id="hstatNum"></div>
+        <div class="hstat-copy" id="hstatCopy"></div>
       </div>
 
       <div class="capture" id="capture">
@@ -260,28 +260,7 @@
     <section class="section">
       <div class="sec-eyebrow">01 — Key findings</div>
       <h2 class="sec-title">Four signals from the community this quarter.</h2>
-      <div class="findings">
-        <div class="finding">
-          <div class="finding-cat">Cash flow</div>
-          <div class="finding-num">73<small>%</small></div>
-          <div class="finding-insight">cite cash flow as their top financial concern — the highest reading since we began tracking it.</div>
-        </div>
-        <div class="finding">
-          <div class="finding-cat">Banking trust</div>
-          <div class="finding-num">61<small>%</small></div>
-          <div class="finding-insight">say they don't fully trust their primary bank to act in their business's interest.</div>
-        </div>
-        <div class="finding">
-          <div class="finding-cat">AI adoption</div>
-          <div class="finding-num">48<small>%</small></div>
-          <div class="finding-insight">are already using AI tools somewhere in their business, most often for admin and customer replies.</div>
-        </div>
-        <div class="finding">
-          <div class="finding-cat">Growth confidence</div>
-          <div class="finding-num">42<small>%</small></div>
-          <div class="finding-insight">feel confident about growth over the next 12 months — steady, but cautious on spending.</div>
-        </div>
-      </div>
+      <div class="findings" id="findings"></div>
     </section>
 
     <!-- CHART -->
@@ -290,16 +269,11 @@
       <h2 class="sec-title">The Independent Business Confidence Index.</h2>
       <div class="chart-card">
         <div class="chart-head">
-          <div class="chart-name">Confidence Index, last four quarters</div>
-          <div class="chart-meta">0–100 scale · n = 4,200</div>
+          <div class="chart-name" id="chartName"></div>
+          <div class="chart-meta" id="chartMeta"></div>
         </div>
-        <div class="bars" id="bars">
-          <div class="bar-col"><div class="bar" data-h="62"><span class="bar-val">38</span></div><div class="bar-x">Q3 '25</div></div>
-          <div class="bar-col"><div class="bar" data-h="68"><span class="bar-val">41</span></div><div class="bar-x">Q4 '25</div></div>
-          <div class="bar-col"><div class="bar" data-h="64"><span class="bar-val">39</span></div><div class="bar-x">Q1 '26</div></div>
-          <div class="bar-col"><div class="bar live" data-h="70"><span class="bar-val">42</span></div><div class="bar-x">Q2 '26</div></div>
-        </div>
-        <div class="chart-foot">Confidence ticked back up this quarter after a soft Q1, but remains well below the 50-point neutral line — owners are optimistic about their own businesses while staying wary of the broader economy.</div>
+        <div class="bars" id="bars"></div>
+        <div class="chart-foot" id="chartFoot"></div>
       </div>
     </section>
 
@@ -307,29 +281,7 @@
     <section class="section">
       <div class="sec-eyebrow">03 — Community voices</div>
       <h2 class="sec-title">In their words.</h2>
-      <div class="voices">
-        <div class="voice">
-          <div class="voice-quote">Some weeks I'm paid in full, some weeks I'm chasing three invoices. Knowing exactly what's cleared is the difference between sleeping and not.</div>
-          <div class="voice-by">
-            <div class="voice-av" style="background:#3d44e3">DR</div>
-            <div><div class="voice-name">Dana Reyes</div><div class="voice-biz">Reyes Tile & Stone · Tucson, AZ</div></div>
-          </div>
-        </div>
-        <div class="voice">
-          <div class="voice-quote">I switched banks because mine treated me like a personal account that happened to make payroll. I needed tools, not a teller.</div>
-          <div class="voice-by">
-            <div class="voice-av" style="background:#242d23">MO</div>
-            <div><div class="voice-name">Marcus Okafor</div><div class="voice-biz">Northbound Coffee Roasters · Portland, OR</div></div>
-          </div>
-        </div>
-        <div class="voice">
-          <div class="voice-quote">AI writes my first-draft client emails and sorts receipts. It bought me back about a day a week — and I bill that day.</div>
-          <div class="voice-by">
-            <div class="voice-av" style="background:#7a52d6">PL</div>
-            <div><div class="voice-name">Priya Lakshmi</div><div class="voice-biz">Lakshmi Bookkeeping Co. · Edison, NJ</div></div>
-          </div>
-        </div>
-      </div>
+      <div class="voices" id="voices"></div>
     </section>
 
     <!-- METHODOLOGY -->
@@ -337,8 +289,8 @@
       <div class="sec-eyebrow">04 — Methodology</div>
       <h2 class="sec-title">How we know.</h2>
       <div class="method">
-        <div class="method-stat">250K+<small>businesses in community</small></div>
-        <div class="method-body">The Novo Pulse draws on a community of more than 250,000 independent businesses, a quarterly survey of 4,200 owners weighted to reflect U.S. industry and geography, and aggregated, anonymized signals from what the community is asking and talking about. No individual account data is ever identified or shared. Figures shown here are sample data for this prototype and clearly labeled as such.</div>
+        <div class="method-stat" id="methodStat"></div>
+        <div class="method-body" id="methodBody"></div>
       </div>
     </section>
 
@@ -365,7 +317,7 @@
   </div>
 
 <script>
-  // email capture
+  // ---------- email capture ----------
   (function(){
     var form = document.getElementById('captureForm');
     var btn = document.getElementById('captureBtn');
@@ -373,43 +325,76 @@
     btn.addEventListener('click', function(){
       var v = email.value.trim();
       if(!v || v.indexOf('@') < 1){ email.style.borderColor = '#e84040'; email.focus(); return; }
-      form.innerHTML = '<div class="capture-done">Thanks — your copy is on its way to ' + v + '</div>';
+      form.innerHTML = '<div class="capture-done">Thanks \u2014 your copy is on its way to ' + v + '</div>';
     });
   })();
 
-  // animate bars when chart scrolls into view
-  (function(){
-    var bars = document.querySelectorAll('#bars .bar');
-    var fired = false;
-    function run(){
-      if(fired) return; fired = true;
-      bars.forEach(function(b, i){
-        setTimeout(function(){ b.style.height = b.getAttribute('data-h') + '%'; }, 120 * i);
-      });
-    }
-    if('IntersectionObserver' in window){
-      var io = new IntersectionObserver(function(es){
-        es.forEach(function(e){ if(e.isIntersecting) run(); });
-      }, { threshold: 0.4 });
-      io.observe(document.getElementById('bars'));
-    } else { run(); }
-  })();
-
-  // toast helper
+  // ---------- toast + share ----------
   function toast(msg){
     var t = document.getElementById('toast');
     document.getElementById('toastMsg').textContent = msg;
     t.classList.add('show');
     clearTimeout(t._t); t._t = setTimeout(function(){ t.classList.remove('show'); }, 2200);
   }
-
-  // share
   document.getElementById('shareBtn').addEventListener('click', function(){
     var url = window.location.href;
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(url).then(function(){ toast('Report link copied'); }, function(){ toast('Report link copied'); });
     } else { toast('Report link copied'); }
   });
+
+  // ---------- render from data.json ----------
+  function animateBars(){
+    var bars = document.querySelectorAll('#bars .bar');
+    var fired = false;
+    function run(){
+      if(fired) return; fired = true;
+      bars.forEach(function(b, i){ setTimeout(function(){ b.style.height = b.getAttribute('data-h') + '%'; }, 120 * i); });
+    }
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) run(); }); }, { threshold: 0.4 });
+      io.observe(document.getElementById('bars'));
+    } else { run(); }
+  }
+
+  function render(p){
+    document.getElementById('hstatNum').innerHTML = p.headline.stat + '<span>' + p.headline.unit + '</span>';
+    document.getElementById('hstatCopy').innerHTML = p.headline.text;
+
+    document.getElementById('findings').innerHTML = p.findings.map(function(f){
+      return '<div class="finding"><div class="finding-cat">' + f.cat + '</div>' +
+        '<div class="finding-num">' + f.num + '<small>' + f.unit + '</small></div>' +
+        '<div class="finding-insight">' + f.insight + '</div></div>';
+    }).join('');
+
+    document.getElementById('chartName').textContent = p.chart.name;
+    document.getElementById('chartMeta').textContent = p.chart.meta;
+    document.getElementById('chartFoot').textContent = p.chart.foot;
+    var max = p.chart.scaleMax || 60;
+    document.getElementById('bars').innerHTML = p.chart.points.map(function(pt){
+      var h = Math.round(pt.value / max * 100);
+      return '<div class="bar-col"><div class="bar' + (pt.live ? ' live' : '') + '" data-h="' + h + '">' +
+        '<span class="bar-val">' + pt.value + '</span></div><div class="bar-x">' + pt.label + '</div></div>';
+    }).join('');
+    animateBars();
+
+    document.getElementById('voices').innerHTML = p.voices.map(function(v){
+      return '<div class="voice"><div class="voice-quote">' + v.quote + '</div>' +
+        '<div class="voice-by"><div class="voice-av" style="background:' + v.color + '">' + v.initials + '</div>' +
+        '<div><div class="voice-name">' + v.name + '</div><div class="voice-biz">' + v.biz + '</div></div></div></div>';
+    }).join('');
+
+    document.getElementById('methodStat').innerHTML = p.methodology.stat + '<small>' + p.methodology.label + '</small>';
+    document.getElementById('methodBody').textContent = p.methodology.body;
+  }
+
+  fetch('data.json')
+    .then(function(r){ return r.json(); })
+    .then(function(d){ render(d.pulse); })
+    .catch(function(err){
+      console.error('Could not load data.json', err);
+      document.getElementById('findings').innerHTML = '<div style="color:var(--ink-soft);font-size:14px;line-height:1.6">Content couldn\u2019t load. This page reads from data.json, so it needs to be served over HTTP (GitHub Pages, or a local server) rather than opened directly from disk.</div>';
+    });
 </script>
 </body>
 </html>
