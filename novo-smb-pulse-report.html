@@ -97,7 +97,6 @@
     border-radius: 26px; padding: 38px 40px;
     position: relative; overflow: hidden;
   }
-  .headline-stat .grommet { position: absolute; top: 0; right: 0; width: 120px; height: 120px; opacity: .5; }
   .hstat-num { font-size: clamp(64px, 12vw, 116px); font-weight: 800; letter-spacing: -0.04em; line-height: 0.9; color: #fff; }
   .hstat-num span { color: #8c92f2; }
   .hstat-copy { font-size: 17px; line-height: 1.5; color: #d8d6cc; max-width: 34ch; }
@@ -217,6 +216,8 @@
   .notch.tl { top: 46px; left: 16px; -webkit-mask: radial-gradient(circle 18px at 100% 100%, transparent 0 14px, #000 14.5px); mask: radial-gradient(circle 18px at 100% 100%, transparent 0 14px, #000 14.5px); }
   .notch.tr { top: 46px; right: 16px; -webkit-mask: radial-gradient(circle 18px at 0 100%, transparent 0 14px, #000 14.5px); mask: radial-gradient(circle 18px at 0 100%, transparent 0 14px, #000 14.5px); }
   .notch.br { bottom: 16px; right: 16px; -webkit-mask: radial-gradient(circle 18px at 0 0, transparent 0 14px, #000 14.5px); mask: radial-gradient(circle 18px at 0 0, transparent 0 14px, #000 14.5px); }
+  .voice-av { position: relative; overflow: hidden; }
+  .av-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 </style>
 </head>
 <body>
@@ -250,7 +251,6 @@
       <p class="hero-sub">A quarterly read on the financial health of the people building something of their own — sourced from the Novo community, surveys, and what owners are talking about right now.</p>
 
       <div class="headline-stat">
-        <svg class="grommet" viewBox="0 0 12 12" fill="none"><path fill="#3d44e3" d="M0 10a2 2 0 0 0 2 2h9.111c.491 0 .889-.398.889-.889C12 4.975 7.025 0 .889 0A.89.89 0 0 0 0 .889z"/></svg>
         <div class="hstat-num" id="hstatNum"></div>
         <div class="hstat-copy" id="hstatCopy"></div>
       </div>
@@ -389,7 +389,7 @@
 
     document.getElementById('voices').innerHTML = p.voices.map(function(v){
       return '<div class="voice"><div class="voice-quote">' + v.quote + '</div>' +
-        '<div class="voice-by"><div class="voice-av" style="background:' + v.color + '">' + v.initials + '</div>' +
+        '<div class="voice-by"><div class="voice-av" style="background:' + v.color + '">' + v.initials + (v.photo ? '<img class="av-photo" src="' + v.photo + '" alt="' + v.name + '" onerror="this.remove()">' : '') + '</div>' +
         '<div><div class="voice-name">' + v.name + '</div><div class="voice-biz">' + v.biz + '</div></div></div></div>';
     }).join('');
 
