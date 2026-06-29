@@ -57,7 +57,7 @@
   @keyframes slideIn { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
 
   /* intro */
-  .intro-h { font-size: clamp(30px, 5.5vw, 46px); font-weight: 800; letter-spacing: -0.025em; line-height: 1.0; text-transform: uppercase; color: #0d0d0d; }
+  .intro-h { font-size: clamp(30px, 5.5vw, 46px); font-weight: 800; letter-spacing: -0.025em; line-height: 1.08; text-transform: uppercase; color: #0d0d0d; }
   .intro-h em { font-style: normal; color: var(--indigo); }
   .intro-sub { margin-top: 16px; font-size: 16.5px; color: var(--ink-soft); }
   .meta-row { display: flex; gap: 18px; margin: 26px 0 30px; flex-wrap: wrap; }
@@ -140,10 +140,15 @@
   .back-fab:focus-visible { outline: 2.5px solid var(--indigo); outline-offset: 3px; }
   @media (max-width: 560px){ .back-fab span { display: none; } .back-fab { padding: 13px; left: 16px; bottom: 16px; } }
   .btn:disabled { opacity: .55; cursor: default; }
-  .hl { background: var(--lav); padding: 0 .12em; border-radius: 3px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .hl { background-image: linear-gradient(var(--lav), var(--lav)); background-repeat: no-repeat; background-position: 0 0.16em; background-size: 100% 0.82em; padding: 0 .12em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .notch { position: fixed; width: 18px; height: 18px; background: var(--black); pointer-events: none; z-index: 35; }
+  .notch.tl { top: 46px; left: 16px; -webkit-mask: radial-gradient(circle 18px at 100% 100%, transparent 0 14px, #000 14.5px); mask: radial-gradient(circle 18px at 100% 100%, transparent 0 14px, #000 14.5px); }
+  .notch.tr { top: 46px; right: 16px; -webkit-mask: radial-gradient(circle 18px at 0 100%, transparent 0 14px, #000 14.5px); mask: radial-gradient(circle 18px at 0 100%, transparent 0 14px, #000 14.5px); }
+  .notch.br { bottom: 16px; right: 16px; -webkit-mask: radial-gradient(circle 18px at 0 0, transparent 0 14px, #000 14.5px); mask: radial-gradient(circle 18px at 0 0, transparent 0 14px, #000 14.5px); }
 </style>
 </head>
 <body>
+  <span class="notch tl"></span><span class="notch tr"></span><span class="notch br"></span>
   <a class="back-fab" href="index.html" aria-label="Back to all prototypes">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <span>All prototypes</span>

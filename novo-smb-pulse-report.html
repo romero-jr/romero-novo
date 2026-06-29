@@ -82,7 +82,7 @@
     display: inline-flex; align-items: center; gap: 9px; margin-bottom: 22px;
   }
   .report-title {
-    font-size: clamp(40px, 7vw, 76px); font-weight: 800; line-height: 0.98;
+    font-size: clamp(40px, 7vw, 76px); font-weight: 800; line-height: 1.04;
     letter-spacing: -0.03em; max-width: 14ch; text-transform: uppercase; color: #0d0d0d;
   }
   .report-title em { font-style: normal; color: var(--indigo); }
@@ -212,10 +212,15 @@
   .back-fab:hover svg { transform: translateX(-3px); }
   .back-fab:focus-visible { outline: 2.5px solid var(--indigo); outline-offset: 3px; }
   @media (max-width: 560px){ .back-fab span { display: none; } .back-fab { padding: 13px; left: 16px; bottom: 16px; } }
-  .hl { background: var(--lav); padding: 0 .12em; border-radius: 3px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .hl { background-image: linear-gradient(var(--lav), var(--lav)); background-repeat: no-repeat; background-position: 0 0.16em; background-size: 100% 0.82em; padding: 0 .12em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .notch { position: fixed; width: 18px; height: 18px; background: var(--black); pointer-events: none; z-index: 35; }
+  .notch.tl { top: 46px; left: 16px; -webkit-mask: radial-gradient(circle 18px at 100% 100%, transparent 0 14px, #000 14.5px); mask: radial-gradient(circle 18px at 100% 100%, transparent 0 14px, #000 14.5px); }
+  .notch.tr { top: 46px; right: 16px; -webkit-mask: radial-gradient(circle 18px at 0 100%, transparent 0 14px, #000 14.5px); mask: radial-gradient(circle 18px at 0 100%, transparent 0 14px, #000 14.5px); }
+  .notch.br { bottom: 16px; right: 16px; -webkit-mask: radial-gradient(circle 18px at 0 0, transparent 0 14px, #000 14.5px); mask: radial-gradient(circle 18px at 0 0, transparent 0 14px, #000 14.5px); }
 </style>
 </head>
 <body>
+  <span class="notch tl"></span><span class="notch tr"></span><span class="notch br"></span>
   <a class="back-fab" href="index.html" aria-label="Back to all prototypes">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <span>All prototypes</span>
